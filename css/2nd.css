@@ -1,0 +1,31 @@
+body {
+    background-image: url("../img/background.PNG");
+    background-size: cover;
+}
+p {
+    font-size: 35px;
+}
+.div1 {
+    background-color: aliceblue;
+    opacity: 0.6;
+    width: 400px;
+    height: 100px;
+    padding: 50px;
+    border: 1px solid black;
+    text-align: center;
+    margin-top: 400px;
+    float: left;
+    margin-left: 300px;
+}
+.div2 {
+    background-color: aliceblue;
+    opacity: 0.6;
+    width: 400px;
+    height: 100px;
+    padding: 50px;
+    border: 1px solid black;
+    text-align: center;
+    margin-top: 400px;
+    float: right;
+    margin-right: 300px;
+}

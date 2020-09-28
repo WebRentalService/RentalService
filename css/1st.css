@@ -1,0 +1,21 @@
+body {
+  background-image: url("../img/background.PNG");
+  background-size: cover;
+}
+a.no-uline {
+  text-decoration: none;
+}
+p {
+  font-size: 35px;
+}
+div {
+  background-color: aliceblue;
+  opacity: 0.6;
+  width: 600px;
+  height: 100px;
+  padding: 50px;
+  border: 1px solid black;
+  text-align: center;
+  margin: 0px auto;
+  margin-top: 400px;
+}

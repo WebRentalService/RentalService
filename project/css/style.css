@@ -1,0 +1,36 @@
+/* 클래스현황 스타일 */
+.outbox{
+    border: 1px solid black;
+    width: 1000px;
+    height: 600px;
+    margin: 50px auto;
+}
+
+.box_header{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.left{
+    float: left;
+}
+.box_content{
+    display: inline-block;
+    float: left;
+    border: 1px solid black;
+    width: 200px;
+    height: 150px;
+    margin: 30px;
+}
+
+.center{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+.center button{
+    width: 170px;
+    height: 70px;
+    font-size: 18px;
+}

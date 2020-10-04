@@ -1,0 +1,32 @@
+.carousel-container{
+    width: 900px;
+    margin: 30px auto;
+    border: 0px solid #000;
+    overflow: hidden;
+    position: relative;
+  }
+  .carousel-slide{
+    display: flex;
+    width: 100%;
+    height: 450px;
+  }
+  #prevBtn{
+    position:absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0%, -50%);
+    width: 20px;
+    height: 36px;
+    background: url(../image/prevBtn.png) no-repeat;
+    text-indent: -9999px;
+  }
+  #nextBtn{
+    position:absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0%, -50%);
+    width: 20px;
+    height: 36px;
+    background: url(../image/nextBtn.png) no-repeat;
+    text-indent: -9999px;
+  }

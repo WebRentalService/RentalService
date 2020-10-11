@@ -97,6 +97,10 @@ li {
     display:block;
 }
 
+.slide_btn {
+    visibility: hidden;
+  }
+
 .button_1{
     background-color: rgba(46, 45, 45, 0.692);
     position: absolute;

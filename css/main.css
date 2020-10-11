@@ -89,6 +89,10 @@ i, em, address {
     display: block;
 }
 
+.slide_btn {
+  visibility: hidden;
+}
+
 li {
     list-style: none;
 }

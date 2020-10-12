@@ -1,0 +1,158 @@
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #272727;
+    padding: 7px 30px;
+    font-size: 25px;
+    height: 60px;
+    width: 1860px;
+}  
+.navbar__logo {
+    font-size: 40px;
+    color: white;
+}
+
+.navbar_logo i {
+    color: #b97f01;
+}
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar_menu li {
+    padding: 12px 12px;
+}
+
+.navbar_menu li:hover {
+    background-color: #3c4249;
+    border-radius: 5px;
+}
+
+ul, ol, dl {
+    list-style:none;
+}
+
+img, video {
+    max-width:100%;
+    border:0;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+label {
+    cursor:pointer;
+}
+
+i, em, address {
+    font-style:normal;
+    font-weight:normal;
+}
+
+.slide {
+    text-align: center;
+    position: fixed;
+    width: 1920px;
+    margin: 0 auto;
+    display: block;
+    height: 888px;
+    filter: brightness(50%);
+}
+
+.slide_ul {
+    display: block;
+}
+
+.slide_ul>li {
+    position:absolute;
+    top:0;
+    left:0;
+    list-style:none;
+    z-index:10;
+    display: block;
+}
+
+li {
+    list-style: none;
+}
+
+.show {
+    display:block;
+}
+
+.slide_btn {
+    visibility: hidden;
+  }
+
+.bottom {
+    color: rgb(199, 199, 199);
+    position: relative;
+    width: 1920px;
+    height: 138px;
+    bottom: 20px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.logi-page {
+    width: 500px;
+    padding: 10% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #00000081;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 10px 0 20px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.form button {
+    text-transform: uppercase;
+    outline: 0;
+    background: #b97f01;
+    width: 100%;
+    border: 0;
+    padding: 20px;
+    color: #FFFFFF;
+    font-size: 20px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.form button:hover,.form button:active,.form button:focus {
+    background: #b97f01;
+}

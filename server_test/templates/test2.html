@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  //버튼을 클릭하면
+  $("button").click(function(){
+    //get 요청을 하고 콜백 할수를 통해 처리하게 된다
+    $.get("/ajax/test2", function(data, status){
+        // 응답데이터를 받고 처러를 시작
+        // console.log("hiho");
+        // console.log(data); //hoho를 받는다
+      alert("Data: " + data + "\nStatus: " + status);
+        // 응답데이터를 받고 처리끝
+    });
+  });
+});
+
+
+
+</script>
+</head>
+<body>
+
+<button>AJAX 개인 연습 </button>
+<form action="/test2" method="POST">
+  <!-- 폼을 쓸때 반드시 네임을 써야 한다 -->
+  <!-- hobby = 축구 -->
+  <input type="text" name="hobby">
+  <button type="submit">This is 버튼</button>
+</form>   <!-- 폼은 get/post 방식 둘다 보낼수 있다.-->
+
+
+
+</body>
+</html>

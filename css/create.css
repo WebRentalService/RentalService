@@ -16,6 +16,8 @@ a {
     font-size: 25px;
     height: 60px;
     width: 1860px;
+    position: absolute;
+    z-index: 500;
 }  
 .navbar__logo {
     font-size: 40px;
@@ -100,26 +102,28 @@ li {
 
 .slide_btn {
     visibility: hidden;
-  }
+}
 
 .bottom {
     color: rgb(199, 199, 199);
-    position: relative;
+    position: absolute;
     width: 1920px;
     height: 138px;
-    bottom: 20px;
+    top: 900px;
     text-align: center;
     line-height: 30px;
 }
 
-.logi-page {
-    width: 500px;
-    padding: 10% 0 0;
+.create-page {
+    position: absolute;
+    width: 700px;
     margin: auto;
+    top: 170px;
+    left: 620px;
 }
 
 .form {
-    position: relative;
+    position: absolute;
     z-index: 1;
     background: #00000081;
     margin: 0 auto 100px;
@@ -129,11 +133,13 @@ li {
 }
 
 .form input {
+    position: relative;
     outline: 0;
     background: #f2f2f2;
-    width: 100%;
+    width: 600px;
+    height: 70px;
     border: 0;
-    margin: 10px 0 20px;
+    margin: 10px 0 40px;
     padding: 15px;
     box-sizing: border-box;
     font-size: 20px;
@@ -143,7 +149,8 @@ li {
     text-transform: uppercase;
     outline: 0;
     background: #b97f01;
-    width: 100%;
+    width: 600px;
+    height: 70px;
     border: 0;
     padding: 20px;
     color: #FFFFFF;

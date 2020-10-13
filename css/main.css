@@ -16,6 +16,8 @@ a {
     font-size: 25px;
     height: 60px;
     width: 1860px;
+    position: absolute;
+    z-index: 500;
 }  
 .navbar__logo {
     font-size: 40px;
@@ -91,7 +93,7 @@ i, em, address {
 }
 
 .slide_btn {
-  visibility: hidden;
+    visibility: hidden;
 }
 
 li {
@@ -152,7 +154,7 @@ li {
     position: absolute;
     width: 1920px;
     height: 138px;
-    top: 800px;
+    top: 900px;
     text-align: center;
     line-height: 30px;
 }

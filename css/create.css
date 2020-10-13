@@ -110,56 +110,6 @@ li {
   visibility: hidden;
 }
 
-.button_1 {
-  background-color: rgba(46, 45, 45, 0.692);
-  position: absolute;
-  height: 400px;
-  width: 400px;
-  margin: -150px 0px 0px -200px;
-  top: 40%;
-  left: 30%;
-  padding: 0;
-  text-align: center;
-  font-size: 30px;
-  border-radius: 20px;
-  line-height: 90px;
-  color: white;
-  cursor: pointer;
-}
-
-.button_1:hover {
-  color: black;
-  background-color: rgba(255, 255, 255, 0.521);
-  cursor: pointer;
-}
-
-div > i {
-  padding: 10px;
-}
-
-.button_2 {
-  background-color: rgba(46, 45, 45, 0.692);
-  position: absolute;
-  height: 400px;
-  width: 400px;
-  margin: -150px 0px 0px -200px;
-  top: 40%;
-  left: 70%;
-  padding: 0;
-  text-align: center;
-  font-size: 30px;
-  border-radius: 20px;
-  line-height: 90px;
-  color: white;
-  cursor: pointer;
-}
-
-.button_2:hover {
-  color: black;
-  background-color: rgba(255, 255, 255, 0.521);
-  cursor: pointer;
-}
-
 .bottom {
   color: rgb(199, 199, 199);
   position: absolute;
@@ -168,4 +118,56 @@ div > i {
   top: 900px;
   text-align: center;
   line-height: 30px;
+}
+
+.create-page {
+  position: absolute;
+  width: 700px;
+  margin: auto;
+  top: 170px;
+  left: 620px;
+}
+
+.form {
+  position: absolute;
+  z-index: 1;
+  background: #00000081;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+  position: relative;
+  outline: 0;
+  background: #f2f2f2;
+  width: 600px;
+  height: 70px;
+  border: 0;
+  margin: 10px 0 40px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+.form button {
+  text-transform: uppercase;
+  outline: 0;
+  background: #b97f01;
+  width: 600px;
+  height: 70px;
+  border: 0;
+  padding: 20px;
+  color: #ffffff;
+  font-size: 20px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.form button:hover,
+.form button:active,
+.form button:focus {
+  background: #b97f01;
 }

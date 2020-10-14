@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    padding: 7px 30px;
+    font-size: 25px;
+    height: 60px;
+    width: 1860px;
+}  
+.navbar__logo {
+    font-size: 40px;
+    color: white;
+}
+
+.navbar_logo i {
+    color: #b97f01;
+}
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar_menu li {
+    padding: 12px 12px;
+}
+
+.navbar_menu li:hover {
+    background-color: #3c4249;
+    border-radius: 5px;
+}
+
+ul, ol, dl {
+    list-style:none;
+}
+
+img, video {
+    max-width:100%;
+    border:0;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+label {
+    cursor:pointer;
+}
+
+i, em, address {
+    font-style:normal;
+    font-weight:normal;
+}
+
+.slide {
+    text-align: center;
+    position: fixed;
+    width: 1920px;
+    margin: 0 auto;
+    display: block;
+    height: 888px;
+    filter: brightness(50%);
+}
+
+.slide_ul {
+    display: block;
+}
+
+.slide_ul>li {
+    position:absolute;
+    top:0;
+    left:0;
+    list-style:none;
+    z-index:10;
+    display: block;
+}
+
+li {
+    list-style: none;
+}
+
+.show {
+    display:block;
+}
+
+.slide_btn {
+    visibility: hidden;
+  }
+
+.button_1{
+    background-color: rgba(46, 45, 45, 0.692);
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    margin: -150px 0px 0px -200px;
+    top: 40%;
+    left: 30%;
+    padding: 0;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    line-height: 90px;
+    color: white;
+    cursor: pointer;
+}
+
+.button_1:hover {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.521);
+    cursor: pointer;
+}
+
+div>i {
+    padding: 10px;
+}
+
+.button_2{
+    background-color: rgba(46, 45, 45, 0.692);
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    margin: -150px 0px 0px -200px;
+    top: 40%;
+    left: 70%;
+    padding: 0;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    line-height: 90px;
+    color: white;
+    cursor: pointer;
+}
+
+.button_2:hover {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.521);
+    cursor: pointer;
+}
+
+.bottom {
+    color: rgb(199, 199, 199);
+    position: relative;
+    width: 1920px;
+    height: 138px;
+    bottom: 20px;
+    text-align: center;
+    line-height: 30px;
+}

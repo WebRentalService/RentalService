@@ -81,3 +81,6 @@ def create():
 
 #     return render_tamplate('login.html')
 
+if __name__ == "__main__":
+    app.debug=True
+    app.run()

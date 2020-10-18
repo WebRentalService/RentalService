@@ -1,58 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/teacher.css">
-    <link rel="stylesheet" href="../vendor/css/fullcalendar.min.css" />
-    <link rel="stylesheet" href="../vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href='../vendor/css/select2.min.css' />
-    <link rel="stylesheet" href='../vendor/css/bootstrap-datetimepicker.min.css' />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,600">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../css/main.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous">
-    </script>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SpaceShare</title>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="navbar_logo">
-        <i class="fas fa-warehouse"></i>
-        <a href="../html/mainpage.html">SpaceShare</a>
-        </div>
-        <ul class="navbar_menu">
-        <li><a href="../html/mainpage.html">Home</a></li>
-        <li><a href="../html/about.html">About Us</a></li>
-        <li><a href="">Notice</a></li>
-        <li><a href="">My Page</a></li>
-        </ul>
-    </nav>
-    <div id="mysidenav" class="sidenav">
-    <a href="#">My Class list</a>
-    <a href="#">Class room</a>
-    <li>School 601</li>
-    <li>Cafe 201</li>
-    <li>Meeting room 101</li>
-    <a href="#">Teacher</a>
-    <li>철수</li>
-    <li>맹구</li>
-    <li>짱구</li>
-    <a href="#">Teacher Number</a>
-    <li>010-1111-2222</li>
-    <a href="#">Materials</a>
-    <li>Pen</li>
-    <li>Note</li>
-    <li>Book</li>
-    <a href="#"class="closebtn" onclick='closeNav()'>←</a>
+{% extends "base.html" %}
+{% block section %}
+<div id="mysidenav" class="sidenav">
+<a href="#">My Class list</a>
+<a href="#">Class</a>
+<li>School</li>
+<li>Cafe</li>
+<li>Meeting room</li>
+<a href="#">Member</a>
+<li>철수</li>
+<li>맹구</li>
+<li>짱구</li>
+<a href="#">Phone Number</a>
+<li>010-1111-2222</li>
+<li>010-2222-3333</li>
+<li>010-3333-4444</li>
+<a href="#">Subject</a>
+<li>Cook</li>
+<li>Converstion</li>
+<li>Korean</li>
+<a href="#"class="closebtn" onclick='closeNav()'>←</a>
 
-    </div>
-    <h1>My Calendar Schedule</h1>
-    <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true"></i>My task list</span>
-    <div class="container">
+</div>
+<h1>My Calendar Schedule</h1>
+<span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true"></i>My task list</span>
+<div class="container">
 
     <div id="contextMenu" class="dropdown clearfix">
         <ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu"
@@ -187,32 +158,4 @@
     </div>
     <!-- /.filter panel -->
 </div>
-<div class="bottom">
-    <hr>
-    Borama Charmand, 227, Bongcheon-ro, Gwanak-gu, Seoul</br>
-    Representative: Seunghwan Kim | Business registration number 168-87-00758</br>
-    Hours of Operation: Mon-Fri 07:00~23:00 / Sat 09:00~18:00 (Closed on Sundays and public holidays)</br>
-    © SpaceShare
-</div>
-<script>
-		function openNav() {
-			document.getElementById('mysidenav').style.width = '250px';
-		}
-		function closeNav() {
-			document.getElementById('mysidenav').style.width = '0';
-		}
-	</script>
-    <script src="/vendor/js/jquery.min.js"></script>
-    <script src="/vendor/js/bootstrap.min.js"></script>
-    <script src="/vendor/js/moment.min.js"></script>
-    <script src="/vendor/js/fullcalendar.min.js"></script>
-    <script src="/vendor/js/ko.js"></script>
-    <script src="/vendor/js/select2.min.js"></script>
-    <script src="/vendor/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/addEvent.js"></script>
-    <script src="/js/editEvent.js"></script>
-    <script src="/js/etcSetting.js"></script>
-</body>
-</html>
-</html>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block section %}
+<div class="slide">
+    <ul class="slide_ul">
+    <li><a><img src="{{ url_for('static', filename='img/slide_1.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_2.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_3.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_4.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_5.jpg') }}"></a></li>
+    </ul>
+</div>
+<div class="create-page">
+    <div class="form">
+    <form action="/register" method="POST">
+        <input type="text" placeholder="name" name="name">
+        <input type="text" placeholder="username" name="username">
+        <input type="password" placeholder="password" name="password">
+        <input type="text" placeholder="phone number" name=phone>
+        <button type="submit">create</button>
+    </form>
+    </div>
+</div>
+{% endblock %}

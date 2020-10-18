@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block section %}
+
+<div class="slide">
+    <ul class="slide_ul">
+    <li><a><img src="{{ url_for('static', filename='img/slide_1.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_2.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_3.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_4.jpg') }}"></a></li>
+    <li><a><img src="{{ url_for('static', filename='img/slide_5.jpg') }}"></a></li>
+    </ul>
+</div>
+<div class="main_text">
+  <h1>Space rental service system</h1>
+  <p>You can easily rent a space.</p>
+</div>
+<div class="button" OnClick="location.href='login'">
+  RESERVATION
+</div>
+
+{% endblock %}

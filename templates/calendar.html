@@ -1,111 +1,155 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+  <link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
 
 
   <script>
 
-  $(document).ready(function() {
-   var calendar = $('#calendar').fullCalendar({
-    editable:true,
-    header:{
-     left:'prev,next today',
-     center:'title',
-     right:'month,agendaWeek,agendaDay'
-    },
-    events: 'load.php',
-    selectable:true,
-    selectHelper:true,
-    select: function(start, end, allDay) {
-	 var title = prompt('왜안되냐고오~')
-	 if(title)
-     {
-      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-      $.ajax({
-       url:"insert.php",
-       type:"POST",
-       data:{title:title, start:start, end:end},
-       success:function()
-       {
-        calendar.fullCalendar('refetchEvents');
-        alert("Added Successfully");
-       }
-      })
-     }
-    },
-    editable:true,
-    eventResize:function(event)
-    {
-     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-     var title = event.title;
-     var id = event.id;
-     $.ajax({
-      url:"update.php",
-      type:"POST",
-      data:{title:title, start:start, end:end, id:id},
-      success:function(){
-       calendar.fullCalendar('refetchEvents');
-       alert('Event Update');
-      }
-     })
+$(document).ready(function() {
+  $("#calendar").fullCalendar({
+    header: {
+      left: "prev,next today",
+      center: "title",
+      right: "month,agendaWeek,agendaDay"
     },
 
-    eventDrop:function(event)
-    {
-     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
-     var title = event.title;
-     var id = event.id;
-     $.ajax({
-      url:"update.php",
-      type:"POST",
-      data:{title:title, start:start, end:end, id:id},
-      success:function()
-      {
-       calendar.fullCalendar('refetchEvents');
-       alert("Event Updated");
-      }
-     });
+    defaultView: "month",
+    navLinks: true, // can click day/week names to navigate views
+    selectable: true,
+    selectHelper: true,
+    editable: true,
+    eventLimit: true, // allow "more" link when too many events
+
+    select: function(start, end) {
+      // Display the modal.
+      // You could fill in the start and end fields based on the parameters
+      $(".modal").modal("show");
+      $(".modal")
+        .find("#title")
+        .val("");
+      $(".modal")
+        .find("#starts-at")
+        .val("");
+      $(".modal")
+        .find("#ends-at")
+        .val("");
+      $("#save-event").show();
+      $("input").prop("readonly", false);
     },
 
-    eventClick:function(event)
-    {
-     if(confirm("Are you sure you want to remove it?"))
-     {
-      var id = event.id;
-      $.ajax({
-       url:"delete.php",
-       type:"POST",
-       data:{id:id},
-       success:function()
-       {
-        calendar.fullCalendar('refetchEvents');
-        alert("Event Removed");
-       }
-      })
-     }
+    eventRender: function(event, element) {
+      //dynamically prepend close button to event
+      element
+        .find(".fc-content")
+        .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
+      element.find(".closeon").on("click", function() {
+        $("#calendar").fullCalendar("removeEvents", event._id);
+      });
     },
 
-   });
+    eventClick: function(calEvent, jsEvent) {
+      // Display the modal and set event values.
+      $(".modal").modal("show");
+      $(".modal")
+        .find("#title")
+        .val(calEvent.title);
+      $(".modal")
+        .find("#starts-at")
+        .val(calEvent.start);
+      $(".modal")
+        .find("#ends-at")
+        .val(calEvent.end);
+      $("#save-event").hide();
+      $("input").prop("readonly", true);
+    }
   });
+
+  // Bind the dates to datetimepicker.
+  $("#starts-at, #ends-at").datetimepicker();
+
+  //click to save "save"
+  $("#save-event").on("click", function(event) {
+    var title = $("#title").val();
+    if (title) {
+      var eventData = {
+        title: title,
+        start: $("#starts-at").val(),
+        end: $("#ends-at").val()
+      };
+      $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
+    }
+    $("#calendar").fullCalendar("unselect");
+
+    // Clear modal inputs
+    $(".modal")
+      .find("input")
+      .val("");
+    // hide modal
+    $(".modal").modal("hide");
+  });
+
+  $("textarea").autosize();
+});
+
    
   </script>
 
-}
-</style>
+
+
  </head>
- <body>
+  
+
+  <!-- {% extends "base.html" %}
+  {% block section %} -->
   <div class="container">
    <div id="calendar"></div>
   </div>
 
- </body>
+  <!-- 모달 -->
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4><input class="modal-title" type="text" name="title" id="title" placeholder="Event Title/Description" /></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="col-xs-4" for="starts-at">Starts at</label>
+            <input type="text" name="starts_at" id="starts-at" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="col-xs-4" for="ends-at">Ends at</label>
+            <input type="text" name="ends_at" id="ends-at" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save-event">Save</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- {% endblock %} -->
 </html>

@@ -30,20 +30,20 @@ function autoplay(){
 }else{
 	current++;
 }
-	$('.slide_ul>li').stop().fadeOut(2000);
-	$('.slide_ul>li').eq(current).stop().fadeIn(2000);
+	$('.slide_ul>li').stop().fadeOut(15000);
+	$('.slide_ul>li').eq(current).stop().fadeIn(15000);
 	$('.slide_btn > li > a').removeClass('active');	
 	$('.slide_btn > li > a').eq(current).addClass('active');	
 }
-setInterval(autoplay,3000);//반복
+setInterval(autoplay,15000);//반복
 
 //버튼 클릭시 호출되는 함수
 function slide_stop(){
 		var fade_idx = $(this).parent().index(); 
 		current = $(this).parent().index();//클릭한 버튼의 Index 를 받아서 그 다음 이미지부터 슬라이드 재생.
 		if($('.slide_ul > li:animated').length >= 1) return false; //버튼 반복 클릭시 딜레이 방지
-		$('.slide_ul > li').fadeOut(400);
-		$('.slide_ul > li').eq(fade_idx).fadeIn(400);
+		$('.slide_ul > li').fadeOut(10000);
+		$('.slide_ul > li').eq(fade_idx).fadeIn(10000);
 		$('.slide_btn > li > a').removeClass('active');	
 		$(this).addClass('active');
 		

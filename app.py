@@ -8,8 +8,8 @@ app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 
 try:
     db = mariadb.connect(
-        user = 'mtp',
-        password = 'password',
+        user = 'lyw',
+        password = 'lee',
         host = 'localhost',
         port = 13306,
         database = 'Users'
@@ -22,7 +22,7 @@ cur = db.cursor()
 
 @app.route('/')
 def main():
-    return render_template('main.html')
+    return render_template('mainpage.html')
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -70,12 +70,13 @@ def login_info():
                     session.clear()
                     session['loginned_user'] = username
                     print(session)
-                    return redirect(url_for('calendar'))
+                    return redirect(url_for('student'))
             else:
                 print("비밀번호가 틀립니다.")
+                return redirect(url_for('login'))
         else:
             print("회원정보가 없습니다")
-        return re
+        return render_template('login.html')
     # return redirect(url_for('calendar'))
 
 #로그인 상태 유무 확인 및 로그인 유지
@@ -107,15 +108,16 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/calendar')
-def calendar():
-    return render_template('calendar.html')
+@app.route('/teacher')
+def teacher():
+    return render_template('teacher.html')
+
+@app.route('/student')
+def student():
+    return render_template('student.html')
 
 if __name__ == "__main__":
     app.debug=True
     app.run()
     # app.secret_key = 'super secret key'
     # app.config['SEESION_TYPE'] = 'filesystem'
-
-
-

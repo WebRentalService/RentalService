@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, g, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, g, jsonify, flash
 import mariadb
 import sys
 
@@ -72,12 +72,21 @@ def login_info():
                     print(session)
                     return redirect(url_for('calendar'))
             else:
+                flash("비밀번호가 틀립니다.")
                 print("비밀번호가 틀립니다.")
-                return redirect(url_for('login'))
+                return render_template("login.html")
+                
         else:
-            print("회원정보가 없습니다")
-        return redirect('login')
+            flash("회원정보가 없습니다.")
+            print("회원정보가 없습니다.")
+            return render_template("login.html")
     # return redirect(url_for('calendar'))
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    print(session)
+    return render_template('main.html')
 
 #로그인 상태 유무 확인 및 로그인 유지
 #app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다

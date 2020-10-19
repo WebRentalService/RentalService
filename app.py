@@ -76,7 +76,7 @@ def login_info():
                 return redirect(url_for('login'))
         else:
             print("회원정보가 없습니다")
-        return re
+        return redirect('login')
     # return redirect(url_for('calendar'))
 
 #로그인 상태 유무 확인 및 로그인 유지

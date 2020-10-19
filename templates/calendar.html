@@ -14,96 +14,115 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
-  <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+  <!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
 
 
   <script>
 
 $(document).ready(function() {
-  $("#calendar").fullCalendar({
-    header: {
-      left: "prev,next today",
-      center: "title",
-      right: "month,agendaWeek,agendaDay"
-    },
-
-    defaultView: "month",
-    navLinks: true, // can click day/week names to navigate views
-    selectable: true,
-    selectHelper: true,
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
-
-    select: function(start, end) {
-      // Display the modal.
-      // You could fill in the start and end fields based on the parameters
-      $(".modal").modal("show");
+    $("#calendar").fullCalendar({
+      header: {
+        left: "prev,next today",
+        center: "title",
+        right: "month,agendaWeek,agendaDay"
+      },
+  
+      defaultView: "month",
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      selectHelper: true,
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+  
+      select: function(start, end) {
+        // Display the modal.
+        // You could fill in the start and end fields based on the parameters
+        $(".modal").modal("show");
+        $(".modal")
+          .find("#title1")
+          .val("");
+        $(".modal")
+          .find("#recipient-name")
+          .val("");
+        $(".modal")
+          .find("#starts-at")
+          .val("");
+        $(".modal")
+          .find("#ends-at")
+          .val("");
+        $("#save-event").show();
+        $("input").prop("readonly", false);
+      },
+  
+      eventRender: function(event, element) {
+        //dynamically prepend close button to event
+        element
+          .find(".fc-content")
+          .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
+        element.find(".closeon").on("click", function() {
+          $("#calendar").fullCalendar("removeEvents", event._id);
+        });
+      },
+  
+      eventClick: function(calEvent, jsEvent) {
+        // Display the modal and set event values.
+        $(".modal").modal("show");
+        $(".modal")
+          .find("#title1")
+          .val(calEvent.title);
+        $(".modal")
+          .find("#recipient-name")
+          .val(calEvent.name);
+        $(".modal")
+          .find("#email")
+          .val(calEvent.email);
+        $(".modal")
+          .find("#phone_number")
+          .val(calEvent.phone_number);
+        $(".modal")
+          .find("#phone_number")
+          .val(calEvent.phone_number);
+        $(".modal")
+          .find("#starts-at")
+          .val(calEvent.start);
+        $(".modal")
+          .find("#ends-at")
+          .val(calEvent.end);
+        $("#save-event").hide();
+        $("input").prop("readonly", true);
+      }
+    });
+  
+    // Bind the dates to datetimepicker.
+    $("#starts-at, #ends-at").datetimepicker();
+  
+    //click to save "save"
+    $("#save-event").on("click", function(event) {
+      var title = $("#title1").val();
+      if (title) {
+        var eventData = {
+          title: title,
+          name: $("#recipient-name").val(),
+          email: $("#email").val(),
+          phone_number: $("#phone_number").val(),
+          start: $("#starts-at").val(),
+          end: $("#ends-at").val()
+        };
+        $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
+      }
+      $("#calendar").fullCalendar("unselect");
+  
+      // Clear modal inputs
       $(".modal")
-        .find("#title")
+        .find("input")
         .val("");
-      $(".modal")
-        .find("#starts-at")
-        .val("");
-      $(".modal")
-        .find("#ends-at")
-        .val("");
-      $("#save-event").show();
-      $("input").prop("readonly", false);
-    },
-
-    eventRender: function(event, element) {
-      //dynamically prepend close button to event
-      element
-        .find(".fc-content")
-        .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
-      element.find(".closeon").on("click", function() {
-        $("#calendar").fullCalendar("removeEvents", event._id);
-      });
-    },
-
-    eventClick: function(calEvent, jsEvent) {
-      // Display the modal and set event values.
-      $(".modal").modal("show");
-      $(".modal")
-        .find("#title")
-        .val(calEvent.title);
-      $(".modal")
-        .find("#starts-at")
-        .val(calEvent.start);
-      $(".modal")
-        .find("#ends-at")
-        .val(calEvent.end);
-      $("#save-event").hide();
-      $("input").prop("readonly", true);
-    }
+      // hide modal
+      $(".modal").modal("hide");
+    });
+  
+    $("textarea").autosize();
   });
 
-  // Bind the dates to datetimepicker.
-  $("#starts-at, #ends-at").datetimepicker();
-
-  //click to save "save"
-  $("#save-event").on("click", function(event) {
-    var title = $("#title").val();
-    if (title) {
-      var eventData = {
-        title: title,
-        start: $("#starts-at").val(),
-        end: $("#ends-at").val()
-      };
-      $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
-    }
-    $("#calendar").fullCalendar("unselect");
-
-    // Clear modal inputs
-    $(".modal")
-      .find("input")
-      .val("");
-    // hide modal
-    $(".modal").modal("hide");
-  });
-
-  $("textarea").autosize();
-});
 
    
   </script>
@@ -112,12 +131,13 @@ $(document).ready(function() {
 
  </head>
   
+ <body>
 
-  <!-- {% extends "base.html" %}
-  {% block section %} -->
   <div class="container">
    <div id="calendar"></div>
   </div>
+
+  
 
   <!-- 모달 -->
 <div class="modal fade" tabindex="-1" role="dialog">
@@ -125,9 +145,38 @@ $(document).ready(function() {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4><input class="modal-title" type="text" name="title" id="title" placeholder="Event Title/Description" /></h4>
+        <h4><input class="modal-title" type="text" name="title" id="title1" placeholder="class name" /></h4>
       </div>
       <div class="modal-body">
+        
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">Name :</label>
+          <input type="text" class="form-control" id="recipient-name" placeholder="이름을 입력하세요!">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address :</label>
+          <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요!">
+        </div>
+
+        <div class="form-group">
+          <label for="Phone_number">Phone_number : </label>
+          <input type="text" class="form-control" id="phone_number" placeholder="전화번호를 입력하세요">
+        </div>
+
+        <label for="selectpicker_modal" class="col-form-label">선택할공간 :</label>
+                <select class="selectpicker" id="selectpicker_modal">
+                    <option>방1</option>
+                    <option>방2</option>
+                    <option>방3</option>
+                  </select>
+
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">내용 :</label>
+                <textarea class="form-control" id="message-text" placeholder="수업내용에 대해 적어주세요!"></textarea>
+              </div>
+
+
         <div class="row">
           <div class="col-xs-12">
             <label class="col-xs-4" for="starts-at">Starts at</label>
@@ -151,5 +200,6 @@ $(document).ready(function() {
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<!-- {% endblock %} -->
+</body>
+
 </html>

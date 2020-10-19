@@ -73,6 +73,7 @@ def login_info():
                     return redirect(url_for('calendar'))
             else:
                 print("비밀번호가 틀립니다.")
+                return redirect(url_for('login'))
         else:
             print("회원정보가 없습니다")
         return re

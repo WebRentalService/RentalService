@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- 로그인 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/login.js') }}"></script>
+    <!-- 회원가입 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+    <!--choice-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/choice.js') }}"></script>
+    <!--about-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/about.js') }}"></script>
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script
+      src="https://kit.fontawesome.com/ab92c38314.js"
+      crossorigin="anonymous">
+    </script>
+    <title>base</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar_logo">
+          <i class="fas fa-warehouse"></i>
+          <a href="/">SpaceShare</a>
+        </div>
+        <ul class="navbar_menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="about">About Us</a></li>
+          <li><a href="">Notice</a></li>
+          <li><a href="">My Page</a></li>
+        </ul>
+    </nav>
+    <section>
+        {% block section %}
+        {% endblock %}
+    </section>
+
+    <div class="bottom">
+        <hr>
+        Borama Charmand, 227, Bongcheon-ro, Gwanak-gu, Seoul</br>
+        Representative: Seunghwan Kim | Business registration number 168-87-00758</br>
+        Hours of Operation: Mon-Fri 07:00~23:00 / Sat 09:00~18:00 (Closed on Sundays and public holidays)</br>
+        © SpaceShare
+      </div>
+</body>
+</html>

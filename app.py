@@ -38,11 +38,9 @@ def register():
         sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
         cur.execute(sql, (name, username, hashed_password, phone)) 
         db.commit()
-        db.close()
+        # db.close()
 
-        print(request.url)
-
-    return render_template('login.html')
+    return redirect(url_for('login_page'))
 
 
 @app.route('/login', methods=['POST'])

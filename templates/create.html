@@ -1,36 +1,18 @@
 {% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+{% endblock %}
+
 {% block section %}
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/login.js"></script>
-    <script
-        src="https://kit.fontawesome.com/ab92c38314.js"
-        crossorigin="anonymous">
-    </script>
-    <title>SpaceShare</title>
-</head> -->
-<div class="slide">
-    <ul class="slide_ul">
-    <li><a><img src="{{ url_for('static', filename='img/slide_1.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_2.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_3.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_4.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_5.jpg') }}"></a></li>
-    </ul>
-</div>
+
 <div class="create-page">
     <div class="form">
     <form action="/register" method="POST">
-        <input type="text" placeholder="name" name="name">
-        <input type="text" placeholder="username" name="username">
-        <input type="password" placeholder="password" name="password">
-        <input type="text" placeholder="phone number" name=phone>
+        <input type="text" placeholder="이름" name="name">
+        <input type="text" placeholder="아이디" name="username">
+        <input type="password" placeholder="비밀번호" name="password">
+        <input type="text" placeholder="전화번호" name=phone>
         <input type="radio" id="student" name="job" value="student" checked="checked">
         <label for="student">학생</label>
         <input type="radio" id="teacher" name="job" value="teacher">
@@ -39,4 +21,5 @@
     </form>
     </div>
 </div>
+
 {% endblock %}

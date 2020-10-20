@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
  <head>
-
+  {% extends "base.html" %}
+  {% block link %}
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
   <link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
@@ -15,8 +16,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
   <!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
-
-
+  {% endblock %}
+  
+{%block scripts%}
   <script>
 
 $(document).ready(function() {
@@ -121,16 +123,15 @@ $(document).ready(function() {
     });
   
     $("textarea").autosize();
-  });
-
-
-   
+  }); 
   </script>
+{%endblock%}
 
 
 
  </head>
-  
+
+ {% block section %}
  <body>
 
   <div class="container">
@@ -201,5 +202,5 @@ $(document).ready(function() {
 </div>
 <!-- /.modal -->
 </body>
-
+{% endblock %}
 </html>

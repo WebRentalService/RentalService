@@ -77,6 +77,7 @@ i, em, address {
     display: block;
     height: 888px;
     filter: brightness(50%);
+    z-index: -1;
 }
 
 .slide_ul {
@@ -88,7 +89,7 @@ i, em, address {
     top:0;
     left:0;
     list-style:none;
-    z-index:10;
+    z-index:-1;
     display: block;
 }
 

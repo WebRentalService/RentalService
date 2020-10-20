@@ -11,7 +11,7 @@ try:
         user = 'mtp',
         password = 'password',
         host = 'localhost',
-        port = 13306,
+        port = 3306,
         database = 'Users'
         )
 except mariadb.Error as e:

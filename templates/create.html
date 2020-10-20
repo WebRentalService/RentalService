@@ -1,23 +1,21 @@
 {% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+{% endblock %}
+
 {% block section %}
-<div class="slide">
-    <ul class="slide_ul">
-    <li><a><img src="{{ url_for('static', filename='img/slide_1.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_2.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_3.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_4.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_5.jpg') }}"></a></li>
-    </ul>
-</div>
+
 <div class="create-page">
     <div class="form">
     <form action="/register" method="POST">
-        <input type="text" placeholder="name" name="name">
-        <input type="text" placeholder="username" name="username">
-        <input type="password" placeholder="password" name="password">
-        <input type="text" placeholder="phone number" name=phone>
-        <button type="submit">create</button>
+        <input type="text" placeholder="이름" name="name">
+        <input type="text" placeholder="아이디" name="username">
+        <input type="password" placeholder="비밀번호" name="password">
+        <input type="text" placeholder="전화번호" name=phone>
+        <button type="submit">회원가입</button>
     </form>
     </div>
 </div>
+
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, g, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, g, jsonify, flash
 import mariadb
 import sys
 
@@ -22,7 +22,7 @@ cur = db.cursor()
 
 @app.route('/')
 def main():
-    return render_template('mainpage.html')
+    return render_template('main.html')
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -70,14 +70,23 @@ def login_info():
                     session.clear()
                     session['loginned_user'] = username
                     print(session)
-                    return redirect(url_for('student'))
+                    return redirect(url_for('calendar'))
             else:
+                flash("비밀번호가 틀립니다.")
                 print("비밀번호가 틀립니다.")
-                return redirect(url_for('login'))
+                return render_template("login.html")
+                
         else:
-            print("회원정보가 없습니다")
-        return render_template('login.html')
+            flash("회원정보가 없습니다.")
+            print("회원정보가 없습니다.")
+            return render_template("login.html")
     # return redirect(url_for('calendar'))
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    print(session)
+    return render_template('main.html')
 
 #로그인 상태 유무 확인 및 로그인 유지
 #app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
@@ -108,16 +117,15 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/teacher')
-def teacher():
-    return render_template('teacher.html')
-
-@app.route('/student')
-def student():
-    return render_template('student.html')
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html')
 
 if __name__ == "__main__":
     app.debug=True
     app.run()
     # app.secret_key = 'super secret key'
     # app.config['SEESION_TYPE'] = 'filesystem'
+
+
+

@@ -1,15 +1,6 @@
 {% extends "base.html" %}
 {% block section %}
 
-<!-- <div class="slide">
-    <ul class="slide_ul">
-    <li><a><img src="{{ url_for('static', filename='img/slide_1.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_2.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_3.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_4.jpg') }}"></a></li>
-    <li><a><img src="{{ url_for('static', filename='img/slide_5.jpg') }}"></a></li>
-    </ul>
-</div> -->
 <div class="main_text">
   <h1>Space rental service system</h1>
   <p>You can easily rent a space.</p>
@@ -20,10 +11,3 @@
 
 {% endblock %}
 
-<link href='{{ url_for('packages', filename='core/main.css') }}' rel='stylesheet' />
-<link href='../packages/daygrid/main.css' rel='stylesheet' />
-<link href='../packages/timegrid/main.css' rel='stylesheet' />
-<script src='../packages/core/main.js'></script>
-<script src='../packages/interaction/main.js'></script>
-<script src='../packages/daygrid/main.js'></script>
-<script src='../packages/timegrid/main.js'></script>

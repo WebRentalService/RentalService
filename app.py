@@ -38,15 +38,13 @@ def register():
         sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
         cur.execute(sql, (name, username, hashed_password, phone)) 
         db.commit()
-        db.close()
+        # db.close()
 
-        print(request.url)
-
-    return render_template('login.html')
+    return redirect(url_for('login_page'))
 
 
 @app.route('/login', methods=['POST'])
-def login_info():
+def login_info(): 
     if request.method == 'POST':
         login_info = request.form
         #로그인 사이트에서 username, password 값이 post로 요청되면 아래와 같이 변수에 저장
@@ -80,16 +78,17 @@ def login_info():
             flash("회원정보가 없습니다.")
             print("회원정보가 없습니다.")
             return render_template("login.html")
-    # return redirect(url_for('calendar'))
+        
+    return redirect(url_for('calendar'))
 
 @app.route('/logout')
 def logout():
     session.clear()
     print(session)
-    return render_template('main.html')
+    return redirect(url_for('login_page'))
 
-#로그인 상태 유무 확인 및 로그인 유지
-#app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
+# 로그인 상태 유무 확인 및 로그인 유지
+# app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
 @app.before_request
 def load_logged_in_user():
     username = session.get('loginned_user') #session 에 'loginned_user' 내용을 가져옴
@@ -97,12 +96,7 @@ def load_logged_in_user():
     if username is None:
         g.user = None
     else:
-        sql = "SELECT username FROM UserInfo WHERE username=?"
-        cur.execute(sql, (username,))
-        user = cur.fetchall()
-        print(user)
-        g.user = user[0][0]
-        print(g.user)
+        g.user = username
 
 @app.route('/login', methods=['GET'])
 def login_page():
@@ -116,10 +110,27 @@ def create():
 def about():
     return render_template('about.html')
 
-
 @app.route('/calendar')
 def calendar():
     return render_template('calendar.html')
+
+@app.route('/modal', methods=['POST'])
+def modal():
+    if request.method == 'POST':
+        
+        title = request.form['title']
+        recipient_name = request.form['recipient_name']
+        email = request.form['email']
+        phone_number =request.form['phone_number']
+
+        print(title, recipient_name, email, phone_number)
+        sql = "INSERT INTO modalContent (title, recipient_name, email, phone_number) VALUES (?, ?, ?, ?)"
+        cur.execute(sql, (title, recipient_name, email, phone_number)) 
+        db.commit()
+        db.close()
+
+    return redirect(url_for('calendar'))
+
 
 if __name__ == "__main__":
     app.debug=True

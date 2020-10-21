@@ -8,19 +8,11 @@ app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 
 try:
     db = mariadb.connect(
-<<<<<<< HEAD
         user = 'mtp',
         password = 'password',
         host = 'localhost',
         port = 3306,
         database = 'Users'
-=======
-        user = 'shk',
-        password = '494081',
-        host = 'localhost',
-        port = 3306,
-        database = 'User'
->>>>>>> SeungHwan
         )
 except mariadb.Error as e:
     print(f"Error connecting to MariaDB Platform: {e}")
@@ -46,15 +38,6 @@ def register():
         sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
         cur.execute(sql, (name, username, hashed_password, phone)) 
         db.commit()
-<<<<<<< HEAD
-        # db.close()
-
-    return redirect(url_for('login_page'))
-
-
-@app.route('/login', methods=['POST'])
-def login_info(): 
-=======
         db.close()
 
         print(request.url)
@@ -64,7 +47,6 @@ def login_info():
 
 @app.route('/login', methods=['POST'])
 def login_info():
->>>>>>> SeungHwan
     if request.method == 'POST':
         login_info = request.form
         #로그인 사이트에서 username, password 값이 post로 요청되면 아래와 같이 변수에 저장
@@ -91,39 +73,21 @@ def login_info():
                     return redirect(url_for('calendar'))
             else:
                 flash("비밀번호가 틀립니다.")
-<<<<<<< HEAD
-                print("비밀번호가 틀립니다.")
-=======
->>>>>>> SeungHwan
                 return render_template("login.html")
                 
         else:
             flash("회원정보가 없습니다.")
-<<<<<<< HEAD
-            print("회원정보가 없습니다.")
-            return render_template("login.html")
-        
-=======
             return render_template("login.html")
     
->>>>>>> SeungHwan
     return redirect(url_for('calendar'))
 
 @app.route('/logout')
 def logout():
     session.clear()
-<<<<<<< HEAD
-    print(session)
-    return redirect(url_for('login_page'))
-
-# 로그인 상태 유무 확인 및 로그인 유지
-# app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
-=======
     return redirect(url_for("login_page"))
 
 #로그인 상태 유무 확인 및 로그인 유지
 #app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
->>>>>>> SeungHwan
 @app.before_request
 def load_logged_in_user():
     username = session.get('loginned_user') #session 에 'loginned_user' 내용을 가져옴
@@ -133,19 +97,11 @@ def load_logged_in_user():
     else:
         g.user = username
 
-<<<<<<< HEAD
-@app.route('/login', methods=['GET'])
-def login_page():
-    return render_template('login.html')
-
-@app.route('/create', methods=['GET'])
-=======
 @app.route('/login')
 def login_page():
     return render_template('login.html')
 
 @app.route('/create')
->>>>>>> SeungHwan
 def create():
     return render_template('create.html')
 
@@ -153,35 +109,6 @@ def create():
 def about():
     return render_template('about.html')
 
-<<<<<<< HEAD
-@app.route('/calendar')
-def calendar():
-    return render_template('calendar.html')
-
-@app.route('/modal', methods=['POST'])
-def modal():
-    if request.method == 'POST':
-        
-        title = request.form['title']
-        recipient_name = request.form['recipient_name']
-        email = request.form['email']
-        phone_number =request.form['phone_number']
-
-        print(title, recipient_name, email, phone_number)
-        sql = "INSERT INTO modalContent (title, recipient_name, email, phone_number) VALUES (?, ?, ?, ?)"
-        cur.execute(sql, (title, recipient_name, email, phone_number)) 
-        db.commit()
-        db.close()
-
-    return redirect(url_for('calendar'))
-
-
-if __name__ == "__main__":
-    app.debug=True
-    app.run()
-    # app.secret_key = 'super secret key'
-    # app.config['SEESION_TYPE'] = 'filesystem'
-=======
 
 @app.route('/calendar')
 def calendar():
@@ -194,8 +121,6 @@ def calendar():
 if __name__ == "__main__":
     app.debug=True
     app.run(host="0.0.0.0")
-
->>>>>>> SeungHwan
 
 
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
  <head>
@@ -10,6 +11,88 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
   {% endblock %}
+=======
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+<link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}"> -->
+{% endblock %}
+
+{% block section %}
+<body>
+
+  <div class="container">
+  <div id="calendar"></div>
+  </div>
+  <!-- 모달 -->
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4><input class="modal-title" type="text" name="title" id="title1" placeholder="class name" /></h4>
+      </div>
+      <div class="modal-body">
+        
+        <div class="form-group">
+          <label for="recipient-name" class="col-form-label">Name :</label>
+          <input type="text" class="form-control" id="recipient-name" placeholder="이름을 입력하세요!">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address :</label>
+          <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요!">
+        </div>
+
+        <div class="form-group">
+          <label for="Phone_number">Phone_number : </label>
+          <input type="text" class="form-control" id="phone_number" placeholder="전화번호를 입력하세요">
+        </div>
+
+        <label for="selectpicker_modal" class="col-form-label">선택할공간 :</label>
+                <select class="selectpicker" id="selectpicker_modal">
+                    <option>방1</option>
+                    <option>방2</option>
+                    <option>방3</option>
+                  </select>
+
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">내용 :</label>
+                <textarea class="form-control" id="message-text" placeholder="수업내용에 대해 적어주세요!"></textarea>
+              </div>
+
+
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="col-xs-4" for="starts-at">Starts at</label>
+            <input type="text" name="starts_at" id="starts-at" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <label class="col-xs-4" for="ends-at">Ends at</label>
+            <input type="text" name="ends_at" id="ends-at" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save-event">Save</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+</body>
+{% endblock %}
+>>>>>>> SeungHwan
 
 {%block scripts%}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -17,11 +100,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
+<<<<<<< HEAD
   
   
 
   <script>
 
+=======
+<script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+
+<script>
+>>>>>>> SeungHwan
 $(document).ready(function() {
     $("#calendar").fullCalendar({
       header: {
@@ -42,10 +131,17 @@ $(document).ready(function() {
         // You could fill in the start and end fields based on the parameters
         $(".modal").modal("show");
         $(".modal")
+<<<<<<< HEAD
           .find("#title")
           .val("");
         $(".modal")
           .find("#recipient_name")
+=======
+          .find("#title1")
+          .val("");
+        $(".modal")
+          .find("#recipient-name")
+>>>>>>> SeungHwan
           .val("");
         $(".modal")
           .find("#starts-at")
@@ -55,6 +151,10 @@ $(document).ready(function() {
           .val("");
         $("#save-event").show();
         $("input").prop("readonly", false);
+<<<<<<< HEAD
+=======
+        $("")
+>>>>>>> SeungHwan
       },
   
       eventRender: function(event, element) {
@@ -74,7 +174,11 @@ $(document).ready(function() {
           .find("#title")
           .val(calEvent.title);
         $(".modal")
+<<<<<<< HEAD
           .find("#recipient_name")
+=======
+          .find("#recipient-name")
+>>>>>>> SeungHwan
           .val(calEvent.name);
         $(".modal")
           .find("#email")
@@ -93,6 +197,11 @@ $(document).ready(function() {
           .val(calEvent.end);
         $("#save-event").hide();
         $("input").prop("readonly", true);
+<<<<<<< HEAD
+=======
+        $("select").prop("readonly", true);
+        $("textarea").prop("readonly", true);
+>>>>>>> SeungHwan
       }
     });
   
@@ -101,11 +210,19 @@ $(document).ready(function() {
   
     //click to save "save"
     $("#save-event").on("click", function(event) {
+<<<<<<< HEAD
       var title = $("#title").val();
       if (title) {
         var eventData = {
           title: title,
           name: $("#recipient_name").val(),
+=======
+      var title = $("#title1").val();
+      if (title) {
+        var eventData = {
+          title: title,
+          name: $("#recipient-name").val(),
+>>>>>>> SeungHwan
           email: $("#email").val(),
           phone_number: $("#phone_number").val(),
           start: $("#starts-at").val(),
@@ -126,6 +243,7 @@ $(document).ready(function() {
     $("textarea").autosize();
   }); 
   </script>
+<<<<<<< HEAD
 {%endblock%}
 
 
@@ -208,4 +326,8 @@ $(document).ready(function() {
 
 </body>
 {% endblock %}
+=======
+{% endblock %}
+
+>>>>>>> SeungHwan
 </html>

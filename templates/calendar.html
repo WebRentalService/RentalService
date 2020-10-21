@@ -1,16 +1,79 @@
-{% extends "base.html" %}
-
-{% block link %}
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
-<link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}"> -->
-{% endblock %}
-
-{% block section %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+    <link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+    <title>ISYT</title>
+</head>
 <body>
+    <style type="text/css">
+    .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #272727;
+    padding: 7px 29px;
+    font-size: 28px;
+    position: relative;
+    height: 75px;
+    width: 100%;
+    z-index: 500;
+    letter-spacing: 4px;
+    
+}
+
+.navbar__logo {
+  font-size: 40px;
+  padding: 12px 12px;
+  color: white;
+}
+
+.navbar_logo i {
+  color: #b97f01;
+}
+
+.navbar_menu {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+}
+
+
+.navbar_menu li {
+  padding: 12px 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.navbar_menu li:hover {
+  background-color: #797979;
+  border-radius: 5px;
+}
+    </style>
+    <nav class="navbar">
+        <div class="navbar_logo">
+          <i class="fas fa-warehouse"></i>
+          <a href="/" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;" >ISYT</a>
+        </div>
+        <ul class="navbar_menu">
+          {%if g.user%}
+          <li><a href="logout" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">로그아웃</a></li>
+          {%else%}
+          <li><a href="login" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">로그인</a></li>
+          {%endif%}
+          <li><a href="/" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">홈</a></li>
+          <li><a href="" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">마이페이지</a></li>
+        </ul>
+    </nav>
+    
 
   <div class="container">
   <div id="calendar"></div>
@@ -76,16 +139,37 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<div class="bottom">
+    <style type="text/css">
+.bottom {
+  color: rgba(26, 26, 26, 0.815);
+  position: relative;
+  text-align: center;
+  line-height: 30px;
+  letter-spacing: 2px;
+  height: 138px;
+  top: 55px;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 16px;
+}
+    </style>
+    <hr style="background-color: black;">
+    서울시 관악구 봉천로 227 보라매샤르망 6층 </br>
+    대표자 : 김승환 | 사업자 등록 번호 000-00-00000 </br>
+    영업 시간 : 월 ~ 금 09 : 00 ~ 18 : 00 (주말 및 공휴일 휴무) </br>
+    © ISYT
+  </div>
 </body>
-{% endblock %}
 
-{%block scripts%}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
-<script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/modal.js') }}"></script>
+<script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
 
 <script>
 $(document).ready(function() {
@@ -192,6 +276,4 @@ $(document).ready(function() {
     $("textarea").autosize();
   }); 
   </script>
-{% endblock %}
-
 </html>

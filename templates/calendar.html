@@ -121,6 +121,7 @@ $(document).ready(function() {
           .val("");
         $("#save-event").show();
         $("input").prop("readonly", false);
+        $("")
       },
   
       eventRender: function(event, element) {
@@ -137,7 +138,7 @@ $(document).ready(function() {
         // Display the modal and set event values.
         $(".modal").modal("show");
         $(".modal")
-          .find("#title1")
+          .find("#title")
           .val(calEvent.title);
         $(".modal")
           .find("#recipient-name")
@@ -159,6 +160,8 @@ $(document).ready(function() {
           .val(calEvent.end);
         $("#save-event").hide();
         $("input").prop("readonly", true);
+        $("select").prop("readonly", true);
+        $("textarea").prop("readonly", true);
       }
     });
   

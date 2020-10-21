@@ -25,12 +25,12 @@ function autoplay(){
 }else{
 	current++;
 }
-	$('.slide_ul>li').stop().fadeOut(2000);
-	$('.slide_ul>li').eq(current).stop().fadeIn(2000);
+	$('.slide_ul>li').stop().fadeOut(4000);
+	$('.slide_ul>li').eq(current).stop().fadeIn(4000);
 	$('.slide_btn > li > a').removeClass('active');	
 	$('.slide_btn > li > a').eq(current).addClass('active');	
 }
-setInterval(autoplay,3000);//반복
+setInterval(autoplay,5000);//반복
 
 //버튼 클릭시 호출되는 함수
 function slide_stop(){

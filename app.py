@@ -8,17 +8,10 @@ app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 
 try:
     db = mariadb.connect(
-<<<<<<< HEAD
         user = 'mtp',
         password = 'password',
         host = 'localhost',
         port = 3306,
-=======
-        user = 'lyw',
-        password = 'lee',
-        host = 'localhost',
-        port = 13306,
->>>>>>> lee
         database = 'Users'
         )
 except mariadb.Error as e:
@@ -45,17 +38,9 @@ def register():
         sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
         cur.execute(sql, (name, username, hashed_password, phone)) 
         db.commit()
-<<<<<<< HEAD
         db.close()
 
-        print(request.url)
-
-    return render_template('login.html')
-=======
-        # db.close()
-
     return redirect(url_for('login_page'))
->>>>>>> lee
 
 
 @app.route('/login', methods=['POST'])
@@ -86,33 +71,18 @@ def login_info():
                     return redirect(url_for('calendar'))
             else:
                 flash("비밀번호가 틀립니다.")
-<<<<<<< HEAD
-=======
-                print("비밀번호가 틀립니다.")
->>>>>>> lee
                 return render_template("login.html")
                 
         else:
             flash("회원정보가 없습니다.")
-<<<<<<< HEAD
             return render_template("login.html")
     
     return redirect(url_for('calendar'))
-=======
-            print("회원정보가 없습니다.")
-            return render_template("login.html")
-    # return redirect(url_for('calendar'))
->>>>>>> lee
 
 @app.route('/logout')
 def logout():
     session.clear()
-<<<<<<< HEAD
     return redirect(url_for("login_page"))
-=======
-    print(session)
-    return render_template('main.html')
->>>>>>> lee
 
 #로그인 상태 유무 확인 및 로그인 유지
 #app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
@@ -123,7 +93,6 @@ def load_logged_in_user():
     if username is None:
         g.user = None
     else:
-<<<<<<< HEAD
         g.user = username
 
 @app.route('/login')
@@ -131,20 +100,6 @@ def login_page():
     return render_template('login.html')
 
 @app.route('/create')
-=======
-        sql = "SELECT username FROM UserInfo WHERE username=?"
-        cur.execute(sql, (username,))
-        user = cur.fetchall()
-        print(user)
-        g.user = user[0][0]
-        print(g.user)
-
-@app.route('/login', methods=['GET'])
-def login_page():
-    return render_template('login.html')
-
-@app.route('/create', methods=['GET'])
->>>>>>> lee
 def create():
     return render_template('create.html')
 
@@ -155,24 +110,33 @@ def about():
 
 @app.route('/calendar')
 def calendar():
-<<<<<<< HEAD
     if g.user is None:
         flash("로그인을 먼저 해주세요.")
         return redirect(url_for("login_page"))
 
-=======
->>>>>>> lee
     return render_template('calendar.html')
+
+@app.route('/modal', methods=['POST'])
+def modal_data():
+    if request.method == 'POST':
+        register_info = request.form
+        
+        title1 = register_info['title1']
+        recipient_name = register_info['recipient_name']
+        email = register_info['email']
+        phone_number = register_info['phone_number']
+
+        print(name, username, hashed_password, phone)
+        sql = "INSERT INTO modalContent (title1, recipient_name, email, phone_number) VALUES (?, ?, ?, ?)"
+        cur.execute(sql, (title1, recipient_name, email, phone_number)) 
+        db.commit()
+        db.close()
+
+    return redirect(url_for('calendar'))
 
 if __name__ == "__main__":
     app.debug=True
-<<<<<<< HEAD
     app.run(host="0.0.0.0")
-=======
-    app.run()
-    # app.secret_key = 'super secret key'
-    # app.config['SEESION_TYPE'] = 'filesystem'
->>>>>>> lee
 
 
 

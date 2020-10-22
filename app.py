@@ -6,19 +6,21 @@ app = Flask(__name__)
 #session 사용을 위한 secret_key 정의
 app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 
-try:
-    db = mariadb.connect(
-        user = 'mtp',
-        password = 'password',
-        host = 'localhost',
-        port = 3306,
-        database = 'Users'
-        )
-except mariadb.Error as e:
-    print(f"Error connecting to MariaDB Platform: {e}")
-    sys.exit(1)
+def mariadb_conn():
+    try:
+        db = mariadb.connect(
+            user = 'mtp',
+            password = 'password',
+            host = 'localhost',
+            port = 3306,
+            database = 'Users'
+            )
 
-cur = db.cursor()
+    except mariadb.Error as e:
+        print(f"Error connecting to MariaDB Platform: {e}")
+        sys.exit(1)
+    return db
+
 
 @app.route('/')
 def main():
@@ -33,12 +35,15 @@ def register():
         username = register_info['username']
         hashed_password = register_info['password']
         phone = register_info['phone']
+        degree = register_info['degree']
 
-        print(name, username, hashed_password, phone)
-        sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
-        cur.execute(sql, (name, username, hashed_password, phone)) 
-        db.commit()
-        db.close()
+        print(name, username, hashed_password, phone, degree)
+        conn = mariadb_conn()
+        cur = conn.cursor()
+        sql = "INSERT INTO UserInfo (name, username, hashed_password, phone, degree) VALUES (?, ?, ?, ?, ?)"
+        cur.execute(sql, (name, username, hashed_password, phone, degree)) 
+        conn.commit()
+        conn.close()
 
     return redirect(url_for('login_page'))
 
@@ -51,10 +56,14 @@ def login_info():
         username = login_info['username']
         password = login_info['password']
         #쿼리문 실행해서 값을 가져오고 그값을 rows변수에 담는다
+        conn = mariadb_conn()
+        cur = conn.cursor()
         sql = "SELECT username, hashed_password FROM UserInfo WHERE username=?"
         cur.execute(sql, (username,))
         rows = cur.fetchall() #cur.fetchall() -> 쿼리문으로 실행된 데이터베이스 정보를 list로 저장
+        conn.close()
         print(len(rows))
+        print(rows)
 
         #post로 요청한 username에 값이 데이터 베이스에 있을경우 len(rows)=1, 없을경우 len(lows)=0
         if len(rows) > 0:
@@ -120,11 +129,28 @@ def calendar():
 @app.route('/ajax', methods=['POST'])
 def ajax():
     data = request.get_json()
-    print(data)
-    print(data.get('title'))
-    print(type(data.get('title')))
+    title = data.get('title')
+    name = data.get('name')
+    email = data.get('email')
+    phone_number = data.get('phone_number')
+    room = data.get('room')
+    message_text = data.get('message_text')
+    start = data.get('start')
+    end = data.get('end')
+
+    sql = """
+        INSERT INTO modalContent (title, recipient_name, email, phone_number, room, message_text, start, end) 
+        VALUES (?, ?, ?, ?, ?, ?, ? ,?)
+        """
+    conn = mariadb_conn()
+    cur = conn.cursor()
+    cur.execute(sql, (title, name, email, phone_number, room, message_text, start, end))
+    conn.commit()
+    conn.close
 
     return jsonify(result = "success", result2= data)
+
+
 
 if __name__ == "__main__":
     app.debug=True

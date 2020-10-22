@@ -1153,7 +1153,7 @@ hr {
   margin-top: 20px;
   margin-bottom: 20px;
   border: 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid;
 }
 .sr-only {
   position: absolute;
@@ -4271,7 +4271,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   min-height: 50px;
   margin-bottom: 20px;
-  border: 1px solid transparent;
 }
 
 @media (min-width: 768px) {
@@ -6867,6 +6866,7 @@ button.close {
 .modal-footer:before,
 .modal-footer:after {
   display: table;
+  content: none;
 }
 .clearfix:after,
 .dl-horizontal dd:after,

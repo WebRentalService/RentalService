@@ -11,33 +11,12 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sidenav.css') }}">
-<<<<<<< HEAD
-=======
   
   
->>>>>>> lee
  </head>
   
  <body>
 
-<<<<<<< HEAD
-  <style type="text/css">
-  .navbar {
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #272727;
-  padding: 7px 30px;
-  font-size: 28px;
-  height: 75px;
-  width: 100%;
-  position: relative;
-  z-index: 500;
-  letter-spacing: 4px;
-  border-radius: 0px;
-  font-family: "Do Hyeon", sans-serif;
-=======
     <style type="text/css">
     .navbar {
     display: flex;
@@ -54,7 +33,6 @@
     letter-spacing: 4px;
     border-radius: 0px;
     font-family: "Do Hyeon", sans-serif;
->>>>>>> lee
 }
 
 .navbar__logo {
@@ -67,17 +45,10 @@ color: #b97f01;
 }
 
 .navbar_menu {
-<<<<<<< HEAD
-display: flex;
-list-style: none;
-padding-left: 0;
-margin-top: 10px;
-=======
   display: flex;
   list-style: none;
   padding-left: 0;
   margin-top: 10px;
->>>>>>> lee
 }
 
 
@@ -89,46 +60,6 @@ padding: 12px 12px;
 background-color: #797979;
 border-radius: 5px;
 }
-<<<<<<< HEAD
-  </style>
-  <nav class="navbar">
-      <div class="navbar_logo">
-        <i class="fas fa-warehouse"></i>
-        <a href="/" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;" >ISYT</a>
-      </div>
-      <ul class="navbar_menu">
-        {%if g.user%}
-        <li><a href="logout" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">{{ g.user.username }} 로그아웃</a></li>
-        {%else%}
-        <li><a href="login" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">로그인</a></li>
-        {%endif%}
-        <li><a href="/" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">홈</a></li>
-        <li><a href="" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">마이페이지</a></li>
-      </ul>
-  </nav>
-  <div id="mysidenav" class="sidenav">
-    <a href="#">My Class list</a>
-    <a href="#">Class room</a>
-    <li>School 601</li>
-    <li>Cafe 201</li>
-    <li>Meeting room 101</li>
-    <a href="#">Teacher</a>
-    <li>철수</li>
-    <li>맹구</li>
-    <li>짱구</li>
-    <a href="#">Teacher Number</a>
-    <li>010-1111-2222</li>
-    <a href="#">Materials</a>
-    <li>Pen</li>
-    <li>Note</li>
-    <li>Book</li>
-    <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
-    </div>
-    <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
-<div class="container">
- <div id="calendar"></div>
-</div>
-=======
     </style>
     <nav class="navbar">
         <div class="navbar_logo">
@@ -164,12 +95,10 @@ border-radius: 5px;
       <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
       </div>
       <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
-  <div class="container">
-   <div id="calendar"></div>
-  </div>
-
->>>>>>> lee
   
+        <d iv class="container">
+        <div id="calendar"></div>
+        </div>
 
   <!-- 모달 -->
 <div class="modal fade" tabindex="-1" role="dialog">
@@ -307,10 +236,7 @@ $(document).ready(function() {
         .val("");
       $("#save-event").show();
       $("input").prop("readonly", false);
-<<<<<<< HEAD
       $("textarea").prop("readonly", false);
-=======
->>>>>>> lee
     },
 
     eventRender: function(event, element) {
@@ -336,15 +262,12 @@ $(document).ready(function() {
         .find("#email")
         .val(calEvent.email);
       $(".modal")
-<<<<<<< HEAD
         .find("#room")
         .val(calEvent.room);
       $(".modal")
         .find("#message_text")
         .val(calEvent.message_text);
       $(".modal")
-=======
->>>>>>> lee
         .find("#phone_number")
         .val(calEvent.phone_number);
       $(".modal")
@@ -353,16 +276,11 @@ $(document).ready(function() {
       $(".modal")
         .find("#ends-at")
         .val(calEvent.end);
-<<<<<<< HEAD
 
       $("#save-event").hide();
       $("input").prop("readonly", true);
       $("textarea").prop("readonly", true);
 
-=======
-      $("#save-event").hide();
-      $("input").prop("readonly", true);
->>>>>>> lee
     }
   });
 
@@ -375,25 +293,18 @@ $(document).ready(function() {
     var name = $("#recipient_name").val();
     var email = $("#email").val();
     var phone_number = $("#phone_number").val();
-<<<<<<< HEAD
     var room = $(":input:radio[name=room]:checked").val();
     var message_text = $("#message_text").val();
-=======
->>>>>>> lee
     var start = $("#starts-at").val();
     var end = $("#ends-at").val();
 
     var postdata = {
-<<<<<<< HEAD
       'title':title, 
       'name':name, 
       'email':email, 
       'phone_number':phone_number, 
       'room':room, 'message_text':message_text, 
       'start':start, 'end':end
-=======
-      'title':title, 'name':name, 'email':email, 'phone_number':phone_number, 'start':start, 'end':end
->>>>>>> lee
     }
 
     $.ajax ({
@@ -403,7 +314,6 @@ $(document).ready(function() {
       dataType: 'JSON',
       contentType: "application/json",
       success: function(data){
-<<<<<<< HEAD
         alert('성공! 데이터 값:'
         +data.result2['title']+" "
         +data.result2['name']+" "
@@ -413,9 +323,6 @@ $(document).ready(function() {
         +data.result2['message_text']+" "
         +data.result2['start']+" "
         +data.result2['end'])
-=======
-        alert('성공! 데이터 값:'+ data.result2['title']+" "+data.result2['name']+" "+data.result2['email']+" "+data.result2['phone_number']+" "+data.result2['start']+" "+data.result2['end'])
->>>>>>> lee
       },
       error: function(request, status, error){
         alert('ajax 통신 실패')
@@ -430,11 +337,8 @@ $(document).ready(function() {
         name: name,
         email: email,
         phone_number: phone_number,
-<<<<<<< HEAD
         room: room,
         message_text: message_text,
-=======
->>>>>>> lee
         start: start,
         end: end
       };
@@ -446,7 +350,6 @@ $(document).ready(function() {
     $(".modal")
       .find("input")
       .val("");
-<<<<<<< HEAD
     $(".modal")
       .find("radio")
       .val("");
@@ -454,8 +357,6 @@ $(document).ready(function() {
       .find("textarea")
       .val("");
 
-=======
->>>>>>> lee
     // hide modal
     $(".modal").modal("hide");
   });

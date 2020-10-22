@@ -37,7 +37,6 @@ def register():
         phone = register_info['phone']
         degree = register_info['degree']
 
-<<<<<<< HEAD
         print(name, username, hashed_password, phone, degree)
         conn = mariadb_conn()
         cur = conn.cursor()
@@ -45,13 +44,6 @@ def register():
         cur.execute(sql, (name, username, hashed_password, phone, degree)) 
         conn.commit()
         conn.close()
-=======
-        print(name, username, hashed_password, phone)
-        sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
-        cur.execute(sql, (name, username, hashed_password, phone)) 
-        db.commit()
-        db.close()
->>>>>>> lee
 
     return redirect(url_for('login_page'))
 
@@ -137,7 +129,6 @@ def calendar():
 @app.route('/ajax', methods=['POST'])
 def ajax():
     data = request.get_json()
-<<<<<<< HEAD
     title = data.get('title')
     name = data.get('name')
     email = data.get('email')
@@ -161,14 +152,6 @@ def ajax():
 
 
 
-=======
-    print(data)
-    print(data.get('title'))
-    print(type(data.get('title')))
-
-    return jsonify(result = "success", result2= data)
-
->>>>>>> lee
 if __name__ == "__main__":
     app.debug=True
     app.run(host="0.0.0.0")

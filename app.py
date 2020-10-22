@@ -94,6 +94,7 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = username
+        print(g.user)
 
 @app.route('/login')
 def login_page():
@@ -116,23 +117,14 @@ def calendar():
 
     return render_template('calendar.html')
 
-@app.route('/modal', methods=['POST'])
-def modal_data():
-    if request.method == 'POST':
-        register_info = request.form
-        
-        title1 = register_info['title1']
-        recipient_name = register_info['recipient_name']
-        email = register_info['email']
-        phone_number = register_info['phone_number']
+@app.route('/ajax', methods=['POST'])
+def ajax():
+    data = request.get_json()
+    print(data)
+    print(data.get('title'))
+    print(type(data.get('title')))
 
-        print(name, username, hashed_password, phone)
-        sql = "INSERT INTO modalContent (title1, recipient_name, email, phone_number) VALUES (?, ?, ?, ?)"
-        cur.execute(sql, (title1, recipient_name, email, phone_number)) 
-        db.commit()
-        db.close()
-
-    return redirect(url_for('calendar'))
+    return jsonify(result = "success", result2= data)
 
 if __name__ == "__main__":
     app.debug=True

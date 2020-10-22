@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-family: 'Do Hyeon', sans-serif;
 }
 
@@ -8,18 +10,26 @@ a {
     color: white;
 }
 
+body img {
+    position: relative;
+    width: 1920px;
+    height: 650px;
+    filter: brightness(60%);
+}
+
 .navbar {
     display: flex;
-    justify-content: space-between;
+    position: fixed;
     align-items: center;
     background-color: #272727;
     padding: 7px 30px;
-    font-size: 25px;
+    font-size: 28px;
+    width: 100%;
     height: 60px;
-    width: 1860px;
-    position: absolute;
     z-index: 500;
-}  
+    letter-spacing: 4px;
+} 
+
 .navbar__logo {
     font-size: 40px;
     color: white;
@@ -28,112 +38,102 @@ a {
 .navbar_logo i {
     color: #b97f01;
 }
-.navbar_menu {
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-}
 
-.navbar_menu li {
-    padding: 12px 12px;
-}
-
-.navbar_menu li:hover {
-    background-color: #3c4249;
-    border-radius: 5px;
-}
-
-ul, ol, dl {
-    list-style:none;
-}
-
-img, video {
-    max-width: 100%;
-    border:0;
-}
-
-table {
-    border-collapse:collapse;
-    border-spacing:0;
-}
-
-input, select {
-    vertical-align:middle;
-}
-
-label {
-    cursor:pointer;
-}
-
-i, em, address {
-    font-style:normal;
-    font-weight:normal;
-}
-
-.slide {
-    text-align: center;
-    position: fixed;
-    width: 1920px;
-    margin: 0 auto;
-    display: block;
-    height: 888px;
-    filter: brightness(50%);
-}
-
-.slide_ul {
-    display: block;
-}
-
-.slide_ul>li {
-    position:absolute;
-    top:0;
-    left:0;
-    list-style:none;
-    z-index:10;
-    display: block;
-}
-
-li {
-    list-style: none;
-}
-
-.show {
-    display:block;
-}
-
-.slide_btn {
-    visibility: hidden;
-}
-
-.intro {
-    background-color: rgba(0, 0, 0, 0.692);
+.main_text>h1 {
+    color: white;
     position: absolute;
-    margin: 80px auto 100px;
-    padding: 45px;
-    height: 500px;
-    width: 1200px;
-    left: 320px;
-    top: 120px;
-    color: rgb(255, 255, 255);
+    text-align: center;
+    line-height: 30px;
+    width: 1920px;
+    height: 30px;
+    top: 200px;
+    font-size: 70px;
+    letter-spacing: 5px;
 }
 
-.box {
-    position: relative;
-    padding: 20px;
-}
-
-.box>p {
-    font-weight: bolder;
+.main_text>p {
+    color: aliceblue;
+    position: absolute;
+    text-align: center;
+    line-height: 80px;
+    width: 1920px;
+    height: 30px;
+    top: 350px;
     font-size: 30px;
-    line-height: 60px;
+    letter-spacing: 8px;
+}
+
+.content {
+    display: inline-block;
+    position: fixed;
+    border: 2px solid rgb(63, 63, 63);
+    box-shadow: 3px 3px 3px 3px gray;
+    right: 50px;
+    bottom: 150px;
+    text-align: center;
+    padding: 8px;
+    z-index: 999;
+}
+
+.content a {
+    font-family: 'Do Hyeon', sans-serif;
+    color: rgb(54, 54, 54);
+    font-size: 25px;
+    padding: 10px 20px;
+    line-height: 50px;
+
+}
+
+.content a:hover {
+    text-shadow: 0 0 24px;
+    cursor: pointer;
+}
+
+.content a:focus {
+    text-shadow: 0 0 24px;
+    cursor: pointer;
+    outline: none;
+}
+
+.button1 {
+    position: relative;
+    text-align: center;
+    height: 500px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.button2 {
+    position: relative;
+    text-align: center;
+    height: 500px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.button3 {
+    position: relative;
+    text-align: center;
+    height: 500px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    position: relative;
+    font-size: 30px;
+    padding-top: 100px;
+    padding-left: 20px;
+    letter-spacing: 5px;
 }
 
 .bottom {
-    color: rgb(199, 199, 199);
-    position: absolute;
+    color: rgba(189,184, 184, 0.925);
+    position: relative;
     width: 1920px;
     height: 138px;
-    top: 900px;
+    top: 100px;
     text-align: center;
     line-height: 30px;
+    letter-spacing: 2px;
 }

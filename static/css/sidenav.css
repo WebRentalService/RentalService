@@ -1,0 +1,64 @@
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 300;
+    top: 15px;
+    left: 0;
+    background-color: wheat;
+    overflow-x: hidden;
+    transition: 0.8s ease-in-out;
+    padding-top: 60px;
+  }
+  .sidenav a {
+    margin: 40px 0px 0px 20px;
+    text-decoration: none;
+    font-size: 25px;
+    color: rgba(34, 29, 29, 0.842);
+    display: block;
+    transition: 0.8s ease-in-out;
+  }
+  .sidenav a:hover,
+  .offcanvas a:focus {
+    color: white;
+  }
+  .sidenav li {
+    position: relative;
+    margin: 0px 0px 0px 20px;
+    font-size: 15px;
+  }
+  .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px !important;
+    margin-left: 50px;
+  }
+  .openmenu:hover {
+    color: rgb(255, 208, 0);
+    transition: 0.5s ease-in-out;
+  }
+  .openmenu {
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+  }
+  .openmenu > i {
+    font-size: 30px;
+  }
+  
+  .bottom {
+    text-align: center;
+    line-height: 30px;
+    margin-top: 80px;
+  }
+  
+  /* 미디어쿼리 적용 */
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+    .sidenav a {
+      font-size: 18px;
+    }
+  }

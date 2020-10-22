@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
-    <link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
-    <title>ISYT</title>
+<html>
+ <head>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+  <link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidenav.css') }}">
+  
+  
 </head>
+  
 <body>
+
     <style type="text/css">
     .navbar {
     display: flex;
+    position: fixed;
     align-items: center;
     justify-content: space-between;
     background-color: #272727;
-    padding: 7px 29px;
+    padding: 7px 30px;
     font-size: 28px;
-    position: relative;
     height: 75px;
     width: 100%;
+    position: relative;
     z-index: 500;
     letter-spacing: 4px;
-    
+    border-radius: 0px;
+    font-family: "Do Hyeon", sans-serif;
 }
 
 .navbar__logo {
   font-size: 40px;
-  padding: 12px 12px;
   color: white;
 }
 
@@ -44,13 +48,12 @@
   display: flex;
   list-style: none;
   padding-left: 0;
+  margin-top: 10px;
 }
 
 
 .navbar_menu li {
   padding: 12px 12px;
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .navbar_menu li:hover {
@@ -65,7 +68,7 @@
         </div>
         <ul class="navbar_menu">
           {%if g.user%}
-          <li><a href="logout" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">로그아웃</a></li>
+          <li><a href="logout" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">{{ g.user.username }} 로그아웃</a></li>
           {%else%}
           <li><a href="login" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">로그인</a></li>
           {%endif%}
@@ -73,24 +76,44 @@
           <li><a href="" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">마이페이지</a></li>
         </ul>
     </nav>
-    
-
+    <div id="mysidenav" class="sidenav">
+      <a href="#">My Class list</a>
+      <a href="#">Class room</a>
+      <li>School 601</li>
+      <li>Cafe 201</li>
+      <li>Meeting room 101</li>
+      <a href="#">Teacher</a>
+      <li>철수</li>
+      <li>맹구</li>
+      <li>짱구</li>
+      <a href="#">Teacher Number</a>
+      <li>010-1111-2222</li>
+      <a href="#">Materials</a>
+      <li>Pen</li>
+      <li>Note</li>
+      <li>Book</li>
+      <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
+      </div>
+      <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
   <div class="container">
-  <div id="calendar"></div>
+   <div id="calendar"></div>
   </div>
+
+  
+
   <!-- 모달 -->
 <div class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4><input class="modal-title" type="text" name="title" id="title1" placeholder="class name" /></h4>
+        <h4><input class="modal-title" type="text" name="title" id="title" placeholder="class name" /></h4>
       </div>
       <div class="modal-body">
         
         <div class="form-group">
           <label for="recipient-name" class="col-form-label">Name :</label>
-          <input type="text" class="form-control" id="recipient-name" placeholder="이름을 입력하세요!">
+          <input type="text" class="form-control" id="recipient_name" placeholder="이름을 입력하세요!">
         </div>
 
         <div class="form-group">
@@ -139,141 +162,172 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<div class="bottom">
-    <style type="text/css">
-.bottom {
-  color: rgba(26, 26, 26, 0.815);
-  position: relative;
-  text-align: center;
-  line-height: 30px;
-  letter-spacing: 2px;
-  height: 138px;
-  top: 55px;
-  font-family: "Do Hyeon", sans-serif;
-  font-size: 16px;
-}
-    </style>
-    <hr style="background-color: black;">
-    서울시 관악구 봉천로 227 보라매샤르망 6층 </br>
-    대표자 : 김승환 | 사업자 등록 번호 000-00-00000 </br>
-    영업 시간 : 월 ~ 금 09 : 00 ~ 18 : 00 (주말 및 공휴일 휴무) </br>
-    © ISYT
-  </div>
-</body>
-
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<style type="text/css">
+  .bottom {
+    color: rgba(114, 112, 112, 0.904);
+    position: relative;
+    text-align: center;
+    line-height: 30px;
+    letter-spacing: 2px;
+    font-family: "Do Hyeon", sans-serif;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+</style>
+<hr style="color: rgba(189,184, 184, 0.925);">
+<div class="bottom" style="text-align: center;">
+  서울시 관악구 봉천로 227 보라매샤르망 6층 </br>
+  대표자 : 김승환 | 사업자 등록 번호 000-00-00000 </br>
+  영업 시간 : 월 ~ 금 09 : 00 ~ 18 : 00 (주말 및 공휴일 휴무) </br>
+  © ISYT
+</div>
+<script>
+  function openNav() {
+    document.getElementById('mysidenav').style.width = '250px';
+  }
+  function closeNav() {
+    document.getElementById('mysidenav').style.width = '0';
+  }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/modal.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
 <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
+<!--LOGO IMG-->
 
 <script>
+  
 $(document).ready(function() {
-    $("#calendar").fullCalendar({
-      header: {
-        left: "prev,next today",
-        center: "title",
-        right: "month,agendaWeek,agendaDay"
-      },
-  
-      defaultView: "month",
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      selectHelper: true,
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-  
-      select: function(start, end) {
-        // Display the modal.
-        // You could fill in the start and end fields based on the parameters
-        $(".modal").modal("show");
-        $(".modal")
-          .find("#title1")
-          .val("");
-        $(".modal")
-          .find("#recipient-name")
-          .val("");
-        $(".modal")
-          .find("#starts-at")
-          .val("");
-        $(".modal")
-          .find("#ends-at")
-          .val("");
-        $("#save-event").show();
-        $("input").prop("readonly", false);
-      },
-  
-      eventRender: function(event, element) {
-        //dynamically prepend close button to event
-        element
-          .find(".fc-content")
-          .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
-        element.find(".closeon").on("click", function() {
-          $("#calendar").fullCalendar("removeEvents", event._id);
-        });
-      },
-  
-      eventClick: function(calEvent, jsEvent) {
-        // Display the modal and set event values.
-        $(".modal").modal("show");
-        $(".modal")
-          .find("#title1")
-          .val(calEvent.title);
-        $(".modal")
-          .find("#recipient-name")
-          .val(calEvent.name);
-        $(".modal")
-          .find("#email")
-          .val(calEvent.email);
-        $(".modal")
-          .find("#phone_number")
-          .val(calEvent.phone_number);
-        $(".modal")
-          .find("#phone_number")
-          .val(calEvent.phone_number);
-        $(".modal")
-          .find("#starts-at")
-          .val(calEvent.start);
-        $(".modal")
-          .find("#ends-at")
-          .val(calEvent.end);
-        $("#save-event").hide();
-        $("input").prop("readonly", true);
-      }
-    });
-  
-    // Bind the dates to datetimepicker.
-    $("#starts-at, #ends-at").datetimepicker();
-  
-    //click to save "save"
-    $("#save-event").on("click", function(event) {
-      var title = $("#title1").val();
-      if (title) {
-        var eventData = {
-          title: title,
-          name: $("#recipient-name").val(),
-          email: $("#email").val(),
-          phone_number: $("#phone_number").val(),
-          start: $("#starts-at").val(),
-          end: $("#ends-at").val()
-        };
-        $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
-      }
-      $("#calendar").fullCalendar("unselect");
-  
-      // Clear modal inputs
+  $("#calendar").fullCalendar({
+    header: {
+      left: "prev,next today",
+      center: "title",
+      right: "month,agendaWeek,agendaDay"
+    },
+
+    defaultView: "month",
+    navLinks: true, // can click day/week names to navigate views
+    selectable: true,
+    selectHelper: true,
+    editable: true,
+    eventLimit: true, // allow "more" link when too many events
+
+    select: function(start, end) {
+      // Display the modal.
+      // You could fill in the start and end fields based on the parameters
+      $(".modal").modal("show");
       $(".modal")
-        .find("input")
+        .find("#title")
         .val("");
-      // hide modal
-      $(".modal").modal("hide");
+      $(".modal")
+        .find("#starts-at")
+        .val("");
+      $(".modal")
+        .find("#ends-at")
+        .val("");
+      $("#save-event").show();
+      $("input").prop("readonly", false);
+    },
+
+    eventRender: function(event, element) {
+      //dynamically prepend close button to event
+      element
+        .find(".fc-content")
+        .prepend("<span class='closeon material-icons'>&#xe5cd;</span>");
+      element.find(".closeon").on("click", function() {
+        $("#calendar").fullCalendar("removeEvents", event._id);
+      });
+    },
+
+    eventClick: function(calEvent, jsEvent) {
+      // Display the modal and set event values.
+      $(".modal").modal("show");
+      $(".modal")
+        .find("#title")
+        .val(calEvent.title);
+      $(".modal")
+        .find("#recipient_name")
+        .val(calEvent.name);
+      $(".modal")
+        .find("#email")
+        .val(calEvent.email);
+      $(".modal")
+        .find("#phone_number")
+        .val(calEvent.phone_number);
+      $(".modal")
+        .find("#starts-at")
+        .val(calEvent.start);
+      $(".modal")
+        .find("#ends-at")
+        .val(calEvent.end);
+      $("#save-event").hide();
+      $("input").prop("readonly", true);
+    }
+  });
+
+  // Bind the dates to datetimepicker.
+  $("#starts-at, #ends-at").datetimepicker();
+
+  //click to save "save"
+  $("#save-event").on("click", function(event) {
+    var title = $("#title").val();
+    var name = $("#recipient_name").val();
+    var email = $("#email").val();
+    var phone_number = $("#phone_number").val();
+    var start = $("#starts-at").val();
+    var end = $("#ends-at").val();
+
+    var postdata = {
+      'title':title, 'name':name, 'email':email, 'phone_number':phone_number, 'start':start, 'end':end
+    }
+
+    $.ajax ({
+      type:'POST',
+      url: '{{url_for("ajax")}}',
+      data: JSON.stringify(postdata),
+      dataType: 'JSON',
+      contentType: "application/json",
+      success: function(data){
+        alert('성공! 데이터 값:'+ data.result2['title']+" "+data.result2['name']+" "+data.result2['email']+" "+data.result2['phone_number']+" "+data.result2['start']+" "+data.result2['end'])
+      },
+      error: function(request, status, error){
+        alert('ajax 통신 실패')
+        alert(error);
+      }
     });
-  
-    $("textarea").autosize();
-  }); 
-  </script>
+    
+    
+    if (title) {
+      var eventData = {
+        title: title,
+        name: name,
+        email: email,
+        phone_number: phone_number,
+        start: start,
+        end: end
+      };
+      $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
+    }
+    $("#calendar").fullCalendar("unselect");
+
+    // Clear modal inputs
+    $(".modal")
+      .find("input")
+      .val("");
+    // hide modal
+    $(".modal").modal("hide");
+  });
+
+  $("textarea").autosize();
+});
+
+
+ 
+</script>
+
+</body>
+
 </html>

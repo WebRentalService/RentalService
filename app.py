@@ -38,7 +38,7 @@ def register():
         sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
         cur.execute(sql, (name, username, hashed_password, phone)) 
         db.commit()
-        # db.close()
+        db.close()
 
     return redirect(url_for('login_page'))
 
@@ -71,20 +71,18 @@ def login_info():
                     return redirect(url_for('calendar'))
             else:
                 flash("비밀번호가 틀립니다.")
-                print("비밀번호가 틀립니다.")
                 return render_template("login.html")
                 
         else:
             flash("회원정보가 없습니다.")
-            print("회원정보가 없습니다.")
             return render_template("login.html")
-    # return redirect(url_for('calendar'))
+    
+    return redirect(url_for('calendar'))
 
 @app.route('/logout')
 def logout():
     session.clear()
-    print(session)
-    return render_template('main.html')
+    return redirect(url_for("login_page"))
 
 #로그인 상태 유무 확인 및 로그인 유지
 #app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
@@ -95,18 +93,14 @@ def load_logged_in_user():
     if username is None:
         g.user = None
     else:
-        sql = "SELECT username FROM UserInfo WHERE username=?"
-        cur.execute(sql, (username,))
-        user = cur.fetchall()
-        print(user)
-        g.user = user[0][0]
+        g.user = username
         print(g.user)
 
-@app.route('/login', methods=['GET'])
+@app.route('/login')
 def login_page():
     return render_template('login.html')
 
-@app.route('/create', methods=['GET'])
+@app.route('/create')
 def create():
     return render_template('create.html')
 
@@ -117,13 +111,24 @@ def about():
 
 @app.route('/calendar')
 def calendar():
+    if g.user is None:
+        flash("로그인을 먼저 해주세요.")
+        return redirect(url_for("login_page"))
+
     return render_template('calendar.html')
+
+@app.route('/ajax', methods=['POST'])
+def ajax():
+    data = request.get_json()
+    print(data)
+    print(data.get('title'))
+    print(type(data.get('title')))
+
+    return jsonify(result = "success", result2= data)
 
 if __name__ == "__main__":
     app.debug=True
-    app.run()
-    # app.secret_key = 'super secret key'
-    # app.config['SEESION_TYPE'] = 'filesystem'
+    app.run(host="0.0.0.0")
 
 
 

@@ -20,7 +20,7 @@ def mariadb_conn():
         print(f"Error connecting to MariaDB Platform: {e}")
         sys.exit(1)
     return db
-
+    
 
 @app.route('/')
 def main():
@@ -58,7 +58,7 @@ def login_info():
         #쿼리문 실행해서 값을 가져오고 그값을 rows변수에 담는다
         conn = mariadb_conn()
         cur = conn.cursor()
-        sql = "SELECT username, hashed_password FROM UserInfo WHERE username=?"
+        sql = "SELECT username, hashed_password, degree FROM UserInfo WHERE username=?"
         cur.execute(sql, (username,))
         rows = cur.fetchall() #cur.fetchall() -> 쿼리문으로 실행된 데이터베이스 정보를 list로 저장
         conn.close()
@@ -76,6 +76,7 @@ def login_info():
                 if password_check == True:
                     session.clear()
                     session['loginned_user'] = username
+                    session['degree'] = rows[0][2]
                     print(session)
                     return redirect(url_for('calendar'))
             else:
@@ -97,13 +98,14 @@ def logout():
 #app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
 @app.before_request
 def load_logged_in_user():
-    username = session.get('loginned_user') #session 에 'loginned_user' 내용을 가져옴
+    username = session.get('loginned_user')
+    degree = session.get('degree') #session 에 'loginned_user' 내용을 가져옴
     # session 에 값이 없을 경우 g.uer(회원정보) 값은 None, 값이 있을경우 회원정보에 username값을 저장
     if username is None:
         g.user = None
     else:
-        g.user = username
-        print(g.user)
+        g.user = username, degree
+        print(g.user[1])
 
 @app.route('/login')
 def login_page():
@@ -200,8 +202,9 @@ def status(title_id):
     cur.execute(sql)
     data_list = []
 
-    for title, recipient_name, email, phone_number, room, message_text, start, end in cur: 
+    for id, title, recipient_name, email, phone_number, room, message_text, start, end in cur: 
         data_dict = {
+        'id' : f'{id}',
         'title': f'{title}',
         'recipient_name': f'{recipient_name}',
         'email': f'{email}',
@@ -215,15 +218,14 @@ def status(title_id):
     data_list.append(data_dict)
     print(data_list)
     conn.close
-    return data_list
+    return data_dict
 
 
-
-    
-    
 if __name__ == "__main__":
     app.debug=True
     app.run(host="0.0.0.0")
+
+
 
 
 

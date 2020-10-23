@@ -79,7 +79,9 @@ border-radius: 5px;
     <div id="mysidenav" class="sidenav">
       <a href="#">My Class list</a>
       <a href="#">Class</a>
+      <div id="class_list">
       {{data | safe}}
+      </div>
       <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
       </div>
       <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
@@ -214,21 +216,29 @@ $(document).ready(function() {
     select: function(start, end) {
       // Display the modal.
       // You could fill in the start and end fields based on the parameters
-      $(".modal").modal("show");
-      $(".modal")
-        .find("#title")
-        .val("");
-      $(".modal")
-        .find("#starts-at")
-        .val("");
-      $(".modal")
-        .find("#ends-at")
-        .val("");
-      $("#save-event").show();
-      $("input").prop("readonly", false);
-      $("textarea").prop("readonly", false);
-    },
+      var g_user = '{{ g.user[1] }}';
 
+      if (g_user == 'student') {
+        alert('권한이 없습니다')
+        $("#calendar").fullCalendar("unselect");
+      } else {
+        $(".modal").modal("show");
+        $(".modal")
+          .find("#title")
+          .val("");
+        $(".modal")
+          .find("#starts-at")
+          .val("");
+        $(".modal")
+          .find("#ends-at")
+          .val("");
+        $("#save-event").show();
+        $("input").prop("readonly", false);
+        $("textarea").prop("readonly", false);
+
+      };
+    },
+    
     eventRender: function(event, element) {
       //dynamically prepend close button to event
       element
@@ -271,7 +281,6 @@ $(document).ready(function() {
       $("#save-event").hide();
       $("input").prop("readonly", true);
       $("textarea").prop("readonly", true);
-
     }
   });
 
@@ -320,7 +329,6 @@ $(document).ready(function() {
         alert(error);
       }
     });
-    
     
     if (title) {
       var eventData = {

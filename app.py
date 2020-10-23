@@ -123,12 +123,26 @@ def calendar():
     if g.user is None:
         flash("로그인을 먼저 해주세요.")
         return redirect(url_for("login_page"))
+    
+    conn = mariadb_conn()
+    cur = conn.cursor()
 
-    return render_template('calendar.html')
+    sql = "SELECT id, title FROM modalContent"
+    cur.execute(sql)
 
-@app.route('/ajax', methods=['POST'])
-def ajax():
+
+    html = ""
+    for id, title in cur:
+        html += "<li><a href='/calendar/status={id}'>{title}</a></li>".format(id=id, title=title)
+        print(id, title)
+    conn.close
+    
+    return render_template('calendar.html', data = html)
+
+@app.route('/modal_data', methods=['POST'])
+def modal_data():
     data = request.get_json()
+
     title = data.get('title')
     name = data.get('name')
     email = data.get('email')
@@ -149,9 +163,64 @@ def ajax():
     conn.close
 
     return jsonify(result = "success", result2= data)
+ 
+
+def data():
+
+    conn = mariadb_conn()
+    cur = conn.cursor()
+    sql = "SELECT * FROM modalContent"
+    cur.execute(sql)
+    data_list = []
+
+    for title, recipient_name, email, phone_number, room, message_text, start, end in cur: 
+        data_dict = {
+            'title': f'{title}',
+            'recipient_name': f'{recipient_name}',
+            'email': f'{email}',
+            'phone_number': f'{phone_number}',
+            'room': f'{room}',
+            'message_text': f'{message_text}',
+            'start': f'{start}',
+            'end': f'{end}'
+            } 
+        
+        data_list.append(data_dict)
+        print(data_list)
+    conn.close
+    return data_list
+
+@app.route('/calendar/status=<title_id>')
+def status(title_id):
+
+    conn = mariadb_conn()
+    cur = conn.cursor()
+
+    sql = "SELECT * FROM modalContent WHERE id={}".format(title_id)
+    cur.execute(sql)
+    data_list = []
+
+    for title, recipient_name, email, phone_number, room, message_text, start, end in cur: 
+        data_dict = {
+        'title': f'{title}',
+        'recipient_name': f'{recipient_name}',
+        'email': f'{email}',
+        'phone_number': f'{phone_number}',
+        'room': f'{room}',
+        'message_text': f'{message_text}',
+        'start': f'{start}',
+        'end': f'{end}'
+        } 
+    
+    data_list.append(data_dict)
+    print(data_list)
+    conn.close
+    return data_list
 
 
 
+    
+    
 if __name__ == "__main__":
     app.debug=True
     app.run(host="0.0.0.0")

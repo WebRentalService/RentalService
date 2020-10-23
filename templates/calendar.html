@@ -78,20 +78,8 @@ border-radius: 5px;
     </nav>
     <div id="mysidenav" class="sidenav">
       <a href="#">My Class list</a>
-      <a href="#">Class room</a>
-      <li>School 601</li>
-      <li>Cafe 201</li>
-      <li>Meeting room 101</li>
-      <a href="#">Teacher</a>
-      <li>철수</li>
-      <li>맹구</li>
-      <li>짱구</li>
-      <a href="#">Teacher Number</a>
-      <li>010-1111-2222</li>
-      <a href="#">Materials</a>
-      <li>Pen</li>
-      <li>Note</li>
-      <li>Book</li>
+      <a href="#">Class</a>
+      {{data | safe}}
       <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
       </div>
       <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
@@ -207,20 +195,22 @@ border-radius: 5px;
 <script>
   
 $(document).ready(function() {
+  
   $("#calendar").fullCalendar({
     header: {
       left: "prev,next today",
       center: "title",
       right: "month,agendaWeek,agendaDay"
     },
-
     defaultView: "month",
     navLinks: true, // can click day/week names to navigate views
     selectable: true,
     selectHelper: true,
     editable: true,
     eventLimit: true, // allow "more" link when too many events
+    
 
+    
     select: function(start, end) {
       // Display the modal.
       // You could fill in the start and end fields based on the parameters
@@ -250,6 +240,7 @@ $(document).ready(function() {
     },
 
     eventClick: function(calEvent, jsEvent) {
+
       // Display the modal and set event values.
       $(".modal").modal("show");
       $(".modal")
@@ -309,7 +300,7 @@ $(document).ready(function() {
 
     $.ajax ({
       type:'POST',
-      url: '{{url_for("ajax")}}',
+      url: '{{url_for("modal_data")}}',
       data: JSON.stringify(postdata),
       dataType: 'JSON',
       contentType: "application/json",
@@ -348,7 +339,7 @@ $(document).ready(function() {
 
     // Clear modal inputs
     $(".modal")
-      .find("input")
+      .find("input")  
       .val("");
     $(".modal")
       .find("radio")
@@ -363,9 +354,6 @@ $(document).ready(function() {
 
   $("textarea").autosize();
 });
-
-
- 
 </script>
 
 </body>

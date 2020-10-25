@@ -19,7 +19,7 @@
 
     <style type="text/css">
     .navbar {
-    display: flex;
+    display: flex;|
     position: fixed;
     align-items: center;
     justify-content: space-between;
@@ -193,6 +193,28 @@ border-radius: 5px;
 <!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
 <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
 <!--LOGO IMG-->
+<script>
+  var title = '커피';
+  var name = "마건익";
+  var email ='이메일';
+  var phone_number = '01011112222';
+  var room = '3번방';
+  var message_text = '커피만드실분';
+  var start = '10/21/2020 10:48 PM';
+  var end = '10/23/2020 10:48 PM';
+  
+  var eventData = {
+    title: title,
+    name: name,
+    email: email,
+    phone_number: phone_number,
+    room: room,
+    message_text: message_text,
+    start: start,
+    end: end
+    };
+    $("#calendar").fullCalendar("renderEvent", eventData, true);
+</script>
 
 <script>
   
@@ -210,8 +232,6 @@ $(document).ready(function() {
     selectHelper: true,
     editable: true,
     eventLimit: true, // allow "more" link when too many events
-    
-
     
     select: function(start, end) {
       // Display the modal.
@@ -280,6 +300,7 @@ $(document).ready(function() {
 
       $("#save-event").hide();
       $("input").prop("readonly", true);
+      $("radio").prop("return", false);
       $("textarea").prop("readonly", true);
     }
   });
@@ -303,8 +324,10 @@ $(document).ready(function() {
       'name':name, 
       'email':email, 
       'phone_number':phone_number, 
-      'room':room, 'message_text':message_text, 
-      'start':start, 'end':end
+      'room':room, 
+      'message_text':message_text, 
+      'start':start, 
+      'end':end
     }
 
     $.ajax ({
@@ -314,15 +337,7 @@ $(document).ready(function() {
       dataType: 'JSON',
       contentType: "application/json",
       success: function(data){
-        alert('성공! 데이터 값:'
-        +data.result2['title']+" "
-        +data.result2['name']+" "
-        +data.result2['email']+" "
-        +data.result2['phone_number']+" "
-        +data.result2['room']+" "
-        +data.result2['message_text']+" "
-        +data.result2['start']+" "
-        +data.result2['end'])
+        alert('등록이 완료되었습니다')
       },
       error: function(request, status, error){
         alert('ajax 통신 실패')

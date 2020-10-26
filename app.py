@@ -6,13 +6,12 @@ app = Flask(__name__)
 #session 사용을 위한 secret_key 정의
 app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 
-<<<<<<< HEAD
 #mariadb 에 연결
 def mariadb_conn():
     try:
         db = mariadb.connect(
-            user = 'mtp',
-            password = 'password',
+            user = 'shk',
+            password = '494081',
             host = 'localhost',
             port = 3306,
             database = 'Users'
@@ -24,27 +23,10 @@ def mariadb_conn():
     return db
     
 #메인화면
-=======
-try:
-    db = mariadb.connect(
-        user = 'ges',
-        password = 'ges',
-        host = 'localhost',
-        port = 13306,
-        database = 'Users'
-        )
-except mariadb.Error as e:
-    print(f"Error connecting to MariaDB Platform: {e}")
-    sys.exit(1)
-
-cur = db.cursor()
-
->>>>>>> origin/go
 @app.route('/')
 def main():
     return render_template('main.html')
 
-<<<<<<< HEAD
 #로그인 페이지
 @app.route('/login')
 def login_page():
@@ -56,22 +38,16 @@ def create():
     return render_template('create.html')
 
 #회원가입
-=======
->>>>>>> origin/go
 @app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
         register_info = request.form
         
-<<<<<<< HEAD
         #post로 넘어온 값을 변수로 저장
-=======
->>>>>>> origin/go
         name = register_info['name']
         username = register_info['username']
         hashed_password = register_info['password']
         phone = register_info['phone']
-<<<<<<< HEAD
         degree = register_info['degree']
         
         #db에 데이터 저장
@@ -88,18 +64,6 @@ def register():
     return redirect(url_for('login_page'))
 
 #로그인
-=======
-
-        print(name, username, hashed_password, phone)
-        sql = "INSERT INTO UserInfo (name, username, hashed_password, phone) VALUES (?, ?, ?, ?)"
-        cur.execute(sql, (name, username, hashed_password, phone)) 
-        db.commit()
-        db.close()
-
-    return redirect(url_for('login_page'))
-
-
->>>>>>> origin/go
 @app.route('/login', methods=['POST'])
 def login_info():
     if request.method == 'POST':
@@ -108,7 +72,6 @@ def login_info():
         username = login_info['username']
         password = login_info['password']
         #쿼리문 실행해서 값을 가져오고 그값을 rows변수에 담는다
-<<<<<<< HEAD
         conn = mariadb_conn()
         cur = conn.cursor()
         sql = "SELECT username, hashed_password, degree FROM UserInfo WHERE username=?"
@@ -116,12 +79,6 @@ def login_info():
         rows = cur.fetchall() #cur.fetchall() -> 쿼리문으로 실행된 데이터베이스 정보를 list로 저장
         conn.close()
         print(rows)
-=======
-        sql = "SELECT username, hashed_password FROM UserInfo WHERE username=?"
-        cur.execute(sql, (username,))
-        rows = cur.fetchall() #cur.fetchall() -> 쿼리문으로 실행된 데이터베이스 정보를 list로 저장
-        print(len(rows))
->>>>>>> origin/go
 
         #post로 요청한 username에 값이 데이터 베이스에 있을경우 len(rows)=1, 없을경우 len(lows)=0
         if len(rows) > 0:
@@ -130,7 +87,6 @@ def login_info():
             if password == rows[0][1]:
                 password_check = True
                 print("password check: ", password_check)
-<<<<<<< HEAD
                 #비밀번호가 일치할경우 session에 usernamer과 degree 저장 
                 if password_check == True:
                     session.clear()
@@ -144,43 +100,21 @@ def login_info():
                 flash("비밀번호가 틀립니다.")
                 return render_template("login.html")
         #회원정보가 없을경우 다시 로그인페이지로 이동
-=======
-
-                if password_check == True:
-                    session.clear()
-                    session['loginned_user'] = username
-                    print(session)
-                    return redirect(url_for('calendar'))
-            else:
-                flash("비밀번호가 틀립니다.")
-                return render_template("login.html")
-                
->>>>>>> origin/go
         else:
             flash("회원정보가 없습니다.")
             return render_template("login.html")
     
-<<<<<<< HEAD
 #로그아웃
 @app.route('/logout')
 def logout():
     #session 값을 모두 제거하고 로그인페이지로 이동
     session.clear() 
     return redirect(url_for("login_page")) 
-=======
-    return redirect(url_for('calendar'))
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for("login_page"))
->>>>>>> origin/go
 
 #로그인 상태 유무 확인 및 로그인 유지
 #app.before_request -> 사이트가 요청될때마다 route가 실행되기전 항상 먼저 실행된다
 @app.before_request
 def load_logged_in_user():
-<<<<<<< HEAD
     username = session.get('loginned_user')
     degree = session.get('degree')
     
@@ -204,7 +138,7 @@ def calendar():
     cur = conn.cursor()
     sql = "SELECT id, title FROM modalContent"
     cur.execute(sql)
-    count = len(cur.fetchall())
+    
 
     #class list 목록 생성
     html = ""
@@ -212,6 +146,8 @@ def calendar():
     for id, title in cur:
         html += "<li><a href='/calendar/status={id}'>{title}</a></li>".format(id=id, title=title)
         print(id, title)
+
+    count = len(cur.fetchall())
     
     if count > 0:
         sql = "SELECT * FROM modalContent"
@@ -318,44 +254,6 @@ def status(title_id):
     conn.close
     return data_dict
 
-=======
-    username = session.get('loginned_user') #session 에 'loginned_user' 내용을 가져옴
-    # session 에 값이 없을 경우 g.uer(회원정보) 값은 None, 값이 있을경우 회원정보에 username값을 저장
-    if username is None:
-        g.user = None
-    else:
-        g.user = username
-        print(g.user)
-
-@app.route('/login')
-def login_page():
-    return render_template('login.html')
-
-@app.route('/create')
-def create():
-    return render_template('create.html')
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-@app.route('/calendar')
-def calendar():
-    if g.user is None:
-        flash("로그인을 먼저 해주세요.")
-        return redirect(url_for("login_page"))
-
-    return render_template('calendar.html')
-
-@app.route('/ajax', methods=['POST'])
-def ajax():
-    data = request.get_json()
-    print(data)
-    print(data.get('title'))
-    print(type(data.get('title')))
-
-    return jsonify(result = "success", result2= data)
->>>>>>> origin/go
 
 if __name__ == "__main__":
     app.debug=True

@@ -10,10 +10,10 @@ app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 def mariadb_conn():
     try:
         db = mariadb.connect(
-            user = 'shk',
-            password = '494081',
+            user = 'ges',
+            password = 'ges',
             host = 'localhost',
-            port = 3306,
+            port = 13306,
             database = 'Users'
             )
 
@@ -258,6 +258,9 @@ def status(title_id):
 def about_page():
     return render_template('about.html')
 
+@app.route('/revise')
+def revise_page():
+    return render_template('revise.html')
 
 if __name__ == "__main__":
     app.debug=True

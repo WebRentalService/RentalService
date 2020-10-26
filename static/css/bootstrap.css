@@ -9,6 +9,12 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
+
+#calendar {
+  width: 900px;
+  margin: 0 auto;
+}
+
 body {
   margin: 0;
 }
@@ -1089,7 +1095,7 @@ html {
 }
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;

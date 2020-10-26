@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
- <head>
+<head>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
   <link rel="stylesheet" href="https://fullcalendar.io/js/fullcalendar-3.0.1/fullcalendar.min.css"></script>
@@ -8,14 +8,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
   <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sidenav.css') }}">
   
   
- </head>
+</head>
   
- <body>
+<body style="font-family: 'Do Hyeon', sans-serif;">
 
     <style type="text/css">
     .navbar {
@@ -73,45 +72,47 @@ border-radius: 5px;
           <li><a href="login" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">로그인</a></li>
           {%endif%}
           <li><a href="/" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">홈</a></li>
+          <li><a href="about" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">사이트소개</a></li>
           <li><a href="calendar" style="text-decoration: none; color: white; font-family: Do Hyeon, sans-serif;">마이페이지</a></li>
         </ul>
     </nav>
     <div id="mysidenav" class="sidenav">
-      <a href="#">My Class list</a>
-      <a href="#">Class</a>
+      <p>내 클래스 목록</p>
+      <p>클래스</p>
       <div id="class_list">
       {{data | safe}}
       </div>
-      <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
+      <p class="closebtn" style="position:absolute; cursor:pointer; margin-top: 95px;" onclick='closeNav()'>←</p>
+      <h5>회원정보 수정하기</h5>
       </div>
-      <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
+      <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>할 일 목록</span>
   
-        <d iv class="container">
+        <div class="container">
         <div id="calendar"></div>
         </div>
 
   <!-- 모달 -->
 <div class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="margin-top: 150px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4><input class="modal-title" type="text" name="title" id="title" placeholder="class name" /></h4>
+        <h4><input class="modal-title" type="text" name="title" id="title" placeholder="클래스 이름" /></h4>
       </div>
       <div class="modal-body">
         
         <div class="form-group">
-          <label for="recipient-name" class="col-form-label">Name :</label>
+          <label for="recipient-name" class="col-form-label">이름 :</label>
           <input type="text" class="form-control" id="recipient_name" placeholder="이름을 입력하세요!">
         </div>
 
         <div class="form-group">
-          <label for="email">Email address :</label>
+          <label for="email">이메일 주소 :</label>
           <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요!">
         </div>
 
         <div class="form-group">
-          <label for="Phone_number">Phone_number : </label>
+          <label for="Phone_number">핸드폰 번호 : </label>
           <input type="text" class="form-control" id="phone_number" placeholder="전화번호를 입력하세요">
         </div>
 
@@ -135,22 +136,22 @@ border-radius: 5px;
 
         <div class="row">
           <div class="col-xs-12">
-            <label class="col-xs-4" for="starts-at">Starts at</label>
+            <label class="col-xs-4" for="starts-at">시작일</label>
             <input type="text" name="starts_at" id="starts-at" />
           </div>
         </div>
 
         <div class="row">
           <div class="col-xs-12">
-            <label class="col-xs-4" for="ends-at">Ends at</label>
+            <label class="col-xs-4" for="ends-at">종료일</label>
             <input type="text" name="ends_at" id="ends-at" />
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="save-event">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" id="save-event">저장</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -179,7 +180,7 @@ border-radius: 5px;
 </div>
 <script>
   function openNav() {
-    document.getElementById('mysidenav').style.width = '250px';
+    document.getElementById('mysidenav').style.width = '300px';
   }
   function closeNav() {
     document.getElementById('mysidenav').style.width = '0';

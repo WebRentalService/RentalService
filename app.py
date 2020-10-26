@@ -254,6 +254,10 @@ def status(title_id):
     conn.close
     return data_dict
 
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
+
 
 if __name__ == "__main__":
     app.debug=True

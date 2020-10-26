@@ -10,8 +10,8 @@ app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 def mariadb_conn():
     try:
         db = mariadb.connect(
-            user = 'shk',
-            password = '494081',
+            user = 'mtp',
+            password = 'password',
             host = 'localhost',
             port = 3306,
             database = 'Users'
@@ -36,6 +36,10 @@ def login_page():
 @app.route('/create')
 def create():
     return render_template('create.html')
+
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
 
 #회원가입
 @app.route('/register', methods=['POST'])
@@ -254,9 +258,7 @@ def status(title_id):
     conn.close
     return data_dict
 
-@app.route('/about')
-def about_page():
-    return render_template('about.html')
+
 
 
 if __name__ == "__main__":

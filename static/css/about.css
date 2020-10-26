@@ -131,10 +131,11 @@ h2 {
 
 .about {
     position: relative;
+    width: 1903px;
+    height: 400px;
     font-size: 25px;
     letter-spacing: 2px;
     line-height: 50px;
-    margin-top: 50px;
 }
 
 .about_img {

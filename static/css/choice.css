@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    font-family: 'Do Hyeon', sans-serif;
 }
 
 a {
@@ -10,18 +9,14 @@ a {
 
 .navbar {
     display: flex;
-    position: fixed;
     justify-content: space-between;
     align-items: center;
-    background-color: #272727;
+    background-color: #000000;
     padding: 7px 30px;
-    font-size: 28px;
-    width: 96.85%;
+    font-size: 25px;
     height: 60px;
-    z-index: 500;
-    letter-spacing: 4px;
-} 
-
+    width: 1860px;
+}  
 .navbar__logo {
     font-size: 40px;
     color: white;
@@ -30,7 +25,6 @@ a {
 .navbar_logo i {
     color: #b97f01;
 }
-
 .navbar_menu {
     display: flex;
     list-style: none;
@@ -42,7 +36,7 @@ a {
 }
 
 .navbar_menu li:hover {
-    background-color: #797979;
+    background-color: #3c4249;
     border-radius: 5px;
 }
 
@@ -106,15 +100,64 @@ li {
 
 .slide_btn {
     visibility: hidden;
+  }
+
+.button_1{
+    background-color: rgba(46, 45, 45, 0.692);
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    margin: -150px 0px 0px -200px;
+    top: 40%;
+    left: 30%;
+    padding: 0;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    line-height: 90px;
+    color: white;
+    cursor: pointer;
+}
+
+.button_1:hover {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.521);
+    cursor: pointer;
+}
+
+div>i {
+    padding: 10px;
+}
+
+.button_2{
+    background-color: rgba(46, 45, 45, 0.692);
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    margin: -150px 0px 0px -200px;
+    top: 40%;
+    left: 70%;
+    padding: 0;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 20px;
+    line-height: 90px;
+    color: white;
+    cursor: pointer;
+}
+
+.button_2:hover {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.521);
+    cursor: pointer;
 }
 
 .bottom {
     color: rgb(199, 199, 199);
-    position: absolute;
+    position: relative;
     width: 1920px;
     height: 138px;
-    top: 900px;
+    bottom: 20px;
     text-align: center;
     line-height: 30px;
-    letter-spacing: 2px;
 }

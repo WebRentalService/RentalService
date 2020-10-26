@@ -36,12 +36,12 @@
 }
 
 .navbar__logo {
-  font-size: 40px;
-  color: white;
+font-size: 40px;
+color: white;
 }
 
 .navbar_logo i {
-  color: #b97f01;
+color: #b97f01;
 }
 
 .navbar_menu {
@@ -53,12 +53,12 @@
 
 
 .navbar_menu li {
-  padding: 12px 12px;
+padding: 12px 12px;
 }
 
 .navbar_menu li:hover {
-  background-color: #797979;
-  border-radius: 5px;
+background-color: #797979;
+border-radius: 5px;
 }
     </style>
     <nav class="navbar">
@@ -78,28 +78,17 @@
     </nav>
     <div id="mysidenav" class="sidenav">
       <a href="#">My Class list</a>
-      <a href="#">Class room</a>
-      <li>School 601</li>
-      <li>Cafe 201</li>
-      <li>Meeting room 101</li>
-      <a href="#">Teacher</a>
-      <li>철수</li>
-      <li>맹구</li>
-      <li>짱구</li>
-      <a href="#">Teacher Number</a>
-      <li>010-1111-2222</li>
-      <a href="#">Materials</a>
-      <li>Pen</li>
-      <li>Note</li>
-      <li>Book</li>
+      <a href="#">Class</a>
+      <div id="class_list">
+      {{data | safe}}
+      </div>
       <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
       </div>
       <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
-  <div class="container">
-   <div id="calendar"></div>
-  </div>
-
   
+        <d iv class="container">
+        <div id="calendar"></div>
+        </div>
 
   <!-- 모달 -->
 <div class="modal fade" tabindex="-1" role="dialog">
@@ -126,18 +115,23 @@
           <input type="text" class="form-control" id="phone_number" placeholder="전화번호를 입력하세요">
         </div>
 
-        <label for="selectpicker_modal" class="col-form-label">선택할공간 :</label>
-                <select class="selectpicker" id="selectpicker_modal">
-                    <option>방1</option>
-                    <option>방2</option>
-                    <option>방3</option>
-                  </select>
+        <div>
+          <label for="room" class="col-form-label">선택할공간 :</label>
+          <br>
+          <label for="room">1번방</label>
+          <input type="radio" name="room" value="1번방">
+          <br>
+          <label for="room">2번방</label>
+          <input type="radio" name="room" value="2번방">
+          <br>
+          <label for="room">3번방</label>
+          <input type="radio" name="room" value="3번방">
+        </div>
 
-              <div class="form-group">
-                <label for="message-text" class="col-form-label">내용 :</label>
-                <textarea class="form-control" id="message-text" placeholder="수업내용에 대해 적어주세요!"></textarea>
-              </div>
-
+        <div class="form-group">
+          <label for="message-text" class="col-form-label">내용 :</label>
+          <textarea class="form-control" id="message_text" placeholder="수업내용에 대해 적어주세요!"></textarea>
+        </div>
 
         <div class="row">
           <div class="col-xs-12">
@@ -145,6 +139,7 @@
             <input type="text" name="starts_at" id="starts-at" />
           </div>
         </div>
+
         <div class="row">
           <div class="col-xs-12">
             <label class="col-xs-4" for="ends-at">Ends at</label>
@@ -152,6 +147,7 @@
           </div>
         </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="save-event">Save</button>
@@ -197,41 +193,72 @@
 <!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
 <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
 <!--LOGO IMG-->
+<script>
+  var title = '커피';
+  var name = "마건익";
+  var email ='이메일';
+  var phone_number = '01011112222';
+  var room = '3번방';
+  var message_text = '커피만드실분';
+  var start = '10/21/2020 10:48 PM';
+  var end = '10/23/2020 10:48 PM';
+  
+  var eventData = {
+    title: title,
+    name: name,
+    email: email,
+    phone_number: phone_number,
+    room: room,
+    message_text: message_text,
+    start: start,
+    end: end
+    };
+    $("#calendar").fullCalendar("renderEvent", eventData, true);
+</script>
 
 <script>
   
 $(document).ready(function() {
+  
   $("#calendar").fullCalendar({
     header: {
       left: "prev,next today",
       center: "title",
       right: "month,agendaWeek,agendaDay"
     },
-
     defaultView: "month",
     navLinks: true, // can click day/week names to navigate views
     selectable: true,
     selectHelper: true,
     editable: true,
     eventLimit: true, // allow "more" link when too many events
-
+    
     select: function(start, end) {
       // Display the modal.
       // You could fill in the start and end fields based on the parameters
-      $(".modal").modal("show");
-      $(".modal")
-        .find("#title")
-        .val("");
-      $(".modal")
-        .find("#starts-at")
-        .val("");
-      $(".modal")
-        .find("#ends-at")
-        .val("");
-      $("#save-event").show();
-      $("input").prop("readonly", false);
-    },
+      var g_user = '{{ g.user[1] }}';
 
+      if (g_user == 'student') {
+        alert('권한이 없습니다')
+        $("#calendar").fullCalendar("unselect");
+      } else {
+        $(".modal").modal("show");
+        $(".modal")
+          .find("#title")
+          .val("");
+        $(".modal")
+          .find("#starts-at")
+          .val("");
+        $(".modal")
+          .find("#ends-at")
+          .val("");
+        $("#save-event").show();
+        $("input").prop("readonly", false);
+        $("textarea").prop("readonly", false);
+
+      };
+    },
+    
     eventRender: function(event, element) {
       //dynamically prepend close button to event
       element
@@ -243,6 +270,7 @@ $(document).ready(function() {
     },
 
     eventClick: function(calEvent, jsEvent) {
+
       // Display the modal and set event values.
       $(".modal").modal("show");
       $(".modal")
@@ -255,6 +283,12 @@ $(document).ready(function() {
         .find("#email")
         .val(calEvent.email);
       $(".modal")
+        .find("#room")
+        .val(calEvent.room);
+      $(".modal")
+        .find("#message_text")
+        .val(calEvent.message_text);
+      $(".modal")
         .find("#phone_number")
         .val(calEvent.phone_number);
       $(".modal")
@@ -263,8 +297,11 @@ $(document).ready(function() {
       $(".modal")
         .find("#ends-at")
         .val(calEvent.end);
+
       $("#save-event").hide();
       $("input").prop("readonly", true);
+      $("radio").prop("return", false);
+      $("textarea").prop("readonly", true);
     }
   });
 
@@ -277,21 +314,30 @@ $(document).ready(function() {
     var name = $("#recipient_name").val();
     var email = $("#email").val();
     var phone_number = $("#phone_number").val();
+    var room = $(":input:radio[name=room]:checked").val();
+    var message_text = $("#message_text").val();
     var start = $("#starts-at").val();
     var end = $("#ends-at").val();
 
     var postdata = {
-      'title':title, 'name':name, 'email':email, 'phone_number':phone_number, 'start':start, 'end':end
+      'title':title, 
+      'name':name, 
+      'email':email, 
+      'phone_number':phone_number, 
+      'room':room, 
+      'message_text':message_text, 
+      'start':start, 
+      'end':end
     }
 
     $.ajax ({
       type:'POST',
-      url: '{{url_for("ajax")}}',
+      url: '{{url_for("modal_data")}}',
       data: JSON.stringify(postdata),
       dataType: 'JSON',
       contentType: "application/json",
       success: function(data){
-        alert('성공! 데이터 값:'+ data.result2['title']+" "+data.result2['name']+" "+data.result2['email']+" "+data.result2['phone_number']+" "+data.result2['start']+" "+data.result2['end'])
+        alert('등록이 완료되었습니다')
       },
       error: function(request, status, error){
         alert('ajax 통신 실패')
@@ -299,13 +345,14 @@ $(document).ready(function() {
       }
     });
     
-    
     if (title) {
       var eventData = {
         title: title,
         name: name,
         email: email,
         phone_number: phone_number,
+        room: room,
+        message_text: message_text,
         start: start,
         end: end
       };
@@ -315,17 +362,21 @@ $(document).ready(function() {
 
     // Clear modal inputs
     $(".modal")
-      .find("input")
+      .find("input")  
       .val("");
+    $(".modal")
+      .find("radio")
+      .val("");
+    $(".modal")
+      .find("textarea")
+      .val("");
+
     // hide modal
     $(".modal").modal("hide");
   });
 
   $("textarea").autosize();
 });
-
-
- 
 </script>
 
 </body>

@@ -1,4 +1,8 @@
 {
     "liveServer.settings.port": 5501,
+<<<<<<< HEAD
     "python.pythonPath": "venv\\Scripts\\python.exe"
+=======
+    "python.pythonPath": "f:\\2nd_portfolio\\RentalService_merge\\venv\\Scripts\\python.exe"
+>>>>>>> mtp
 }

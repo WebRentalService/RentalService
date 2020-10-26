@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
   <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sidenav.css') }}">
   
@@ -89,6 +88,7 @@ border-radius: 5px;
   
         <d iv class="container">
         <div id="calendar"></div>
+        <button type="button" id="status" onclick="status()">예약확인</button>
         </div>
 
   <!-- 모달 -->
@@ -181,11 +181,38 @@ border-radius: 5px;
 <script>
   function openNav() {
     document.getElementById('mysidenav').style.width = '250px';
-  }
+  };
   function closeNav() {
     document.getElementById('mysidenav').style.width = '0';
-  }
+  };
+  // {{ eventData }}
+
+  function status() {
+    var title = 'title';
+    var name = 'name';
+    var email = 'email';
+    var phone_number = 'phone_number';
+    var room = 'room';
+    var message_text = 'message_text';
+    var start = '10/19/2020 9:18 AM';
+    var end = '10/21/2020 9:18 AM';
+    
+    var eventData = {
+
+      title: title,
+      name: name,
+      email: email,
+      phone_number: phone_number,
+      room: room,
+      message_text: message_text,
+      start: start,
+      end: end
+      };
+      $("#calendar").fullCalendar("renderEvent", eventData, true);
+   };
+  
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
@@ -194,28 +221,7 @@ border-radius: 5px;
 <!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
 <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
 <!--LOGO IMG-->
-<script>
-  var title = '커피';
-  var name = "마건익";
-  var email ='이메일';
-  var phone_number = '01011112222';
-  var room = '3번방';
-  var message_text = '커피만드실분';
-  var start = '10/21/2020 10:48 PM';
-  var end = '10/23/2020 10:48 PM';
-  
-  var eventData = {
-    title: title,
-    name: name,
-    email: email,
-    phone_number: phone_number,
-    room: room,
-    message_text: message_text,
-    start: start,
-    end: end
-    };
-    $("#calendar").fullCalendar("renderEvent", eventData, true);
-</script>
+
 
 <script>
   
@@ -377,6 +383,7 @@ $(document).ready(function() {
   });
 
   $("textarea").autosize();
+
 });
 </script>
 

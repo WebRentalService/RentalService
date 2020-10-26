@@ -30,6 +30,8 @@ def main():
 #로그인 페이지
 @app.route('/login')
 def login_page():
+    if g.user:
+        return redirect(url_for('calendar'))
     return render_template('login.html')
 
 #회원가입 페이지 
@@ -148,7 +150,7 @@ def calendar():
     html = ""
     modal_data_dict = []
     for id, title in cur:
-        html += "<li><a href='/calendar/status={id}'>{title}</a></li>".format(id=id, title=title)
+        html += "<button><a href='/calendar/status={id}'>{title}</a></button>".format(id=id, title=title)
         print(id, title)
 
     count = len(cur.fetchall())
@@ -212,21 +214,21 @@ def data():
     data_list = []
 
     for title, recipient_name, email, phone_number, room, message_text, start, end in cur: 
-        data_dict = {
-            'title': f'{title}',
-            'recipient_name': f'{recipient_name}',
-            'email': f'{email}',
-            'phone_number': f'{phone_number}',
-            'room': f'{room}',
-            'message_text': f'{message_text}',
-            'start': f'{start}',
-            'end': f'{end}'
-            } 
-        
+        eventData = """ var eventData = { 
+            'title': {title}
+            'recipient_name': {recipient_name} 
+            'email': {email}
+            'phone_number': {phone_number}
+            'room': {room}
+            'message_text': {message_text} 
+            'start': {start}
+            'end': {end}
+            };
+        """.format(title, recipient_name, email, phone_number, room, message_text, start, end)
         data_list.append(data_dict)
         print(data_list)
     conn.close
-    return data_list
+    return render_template('data.html', eventData = eventData) 
 
 #class list 클릭시 이벤트
 #url에 들어간 데이터의 id로 데이터 판단
@@ -258,6 +260,9 @@ def status(title_id):
     conn.close
     return data_dict
 
+@app.route('/data')
+def datas():
+    return render_template('data.html')
 
 
 

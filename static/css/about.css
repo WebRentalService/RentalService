@@ -1,7 +1,5 @@
 body {
     margin: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
     font-family: 'Do Hyeon', sans-serif;
 }
 
@@ -10,21 +8,15 @@ a {
     color: white;
 }
 
-body img {
-    position: relative;
-    width: 1920px;
-    height: 650px;
-    filter: brightness(60%);
-}
-
 .navbar {
     display: flex;
     position: fixed;
+    justify-content: space-between;
     align-items: center;
     background-color: #272727;
     padding: 7px 30px;
     font-size: 28px;
-    width: 100%;
+    width: 96.85%;
     height: 60px;
     z-index: 500;
     letter-spacing: 4px;
@@ -39,12 +31,27 @@ body img {
     color: #b97f01;
 }
 
+.navbar_menu {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.navbar_menu li {
+    padding: 12px 12px;
+}
+
+.navbar_menu li:hover {
+    background-color: #797979;
+    border-radius: 5px;
+}
+
 .main_text>h1 {
     color: white;
     position: absolute;
     text-align: center;
     line-height: 30px;
-    width: 1920px;
+    width: 1903px;
     height: 30px;
     top: 200px;
     font-size: 70px;
@@ -56,7 +63,7 @@ body img {
     position: absolute;
     text-align: center;
     line-height: 80px;
-    width: 1920px;
+    width: 1903px;
     height: 30px;
     top: 350px;
     font-size: 30px;
@@ -66,6 +73,7 @@ body img {
 .content {
     display: inline-block;
     position: fixed;
+    background-color: white;
     border: 2px solid rgb(63, 63, 63);
     box-shadow: 3px 3px 3px 3px gray;
     right: 50px;
@@ -98,39 +106,93 @@ body img {
 .button1 {
     position: relative;
     text-align: center;
-    height: 500px;
-    margin-top: 50px;
-    margin-bottom: 30px;
 }
 
 .button2 {
     position: relative;
     text-align: center;
-    height: 500px;
-    margin-top: 50px;
-    margin-bottom: 30px;
 }
 
 .button3 {
     position: relative;
-    text-align: center;
-    height: 500px;
-    margin-top: 50px;
-    margin-bottom: 30px;
 }
 
-h1 {
+h2 {
     position: relative;
-    font-size: 30px;
+    font-size: 50px;
     padding-top: 100px;
-    padding-left: 20px;
+    width: 1903px;
     letter-spacing: 5px;
+    text-align: center;
+    margin-bottom: 50px;
+    text-shadow: 8px 8px 6px rgb(150, 150, 150);
+    letter-spacing: 5px;
+}
+
+.about {
+    position: relative;
+    font-size: 25px;
+    letter-spacing: 2px;
+    line-height: 50px;
+    margin-top: 50px;
+}
+
+.about_img {
+    position: relative;
+}
+
+.skill {
+    position: relative;
+    font-size: 20px;
+    width: 1200px;
+    letter-spacing: 2px;
+    line-height: 40px;
+    margin-left: 360px;
+}
+
+.skill img {
+    position: relative;
+    filter: brightness(100%);
+}
+
+.member {
+    position: relative;
+    display: inline-flex;
+    left: 420px;
+}
+
+.member i {
+    font-size: 150px;
+    color: rgba(0, 0, 0, 0.849);
+}
+
+h6 {
+    position: relative;
+    width: 200px;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    font-size: 30px;
+    left: 445px;
+    letter-spacing: 5px;
+}
+
+.member p {
+    border-left: 2px solid #00000065;
+    position: relative;
+    font-size: 20px;
+    margin-top: 0;
+    margin-left: 50px;
+    width: 1000px;
+    height: 150px;
+    padding-left: 30px;
+    letter-spacing: 2px;
+    line-height: 40px;
 }
 
 .bottom {
     color: rgba(189,184, 184, 0.925);
     position: relative;
-    width: 1920px;
+    width: 1903px;
     height: 138px;
     top: 100px;
     text-align: center;

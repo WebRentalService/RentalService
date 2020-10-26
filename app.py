@@ -40,9 +40,7 @@ def register():
         db.commit()
         db.close()
 
-        print(request.url)
-
-    return render_template('login.html')
+    return redirect(url_for('login_page'))
 
 
 @app.route('/login', methods=['POST'])
@@ -96,6 +94,7 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = username
+        print(g.user)
 
 @app.route('/login')
 def login_page():
@@ -105,6 +104,10 @@ def login_page():
 def create():
     return render_template('create.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/calendar')
 def calendar():
     if g.user is None:
@@ -112,6 +115,15 @@ def calendar():
         return redirect(url_for("login_page"))
 
     return render_template('calendar.html')
+
+@app.route('/ajax', methods=['POST'])
+def ajax():
+    data = request.get_json()
+    print(data)
+    print(data.get('title'))
+    print(type(data.get('title')))
+
+    return jsonify(result = "success", result2= data)
 
 if __name__ == "__main__":
     app.debug=True

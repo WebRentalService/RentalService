@@ -88,7 +88,7 @@ border-radius: 5px;
   
         <d iv class="container">
         <div id="calendar"></div>
-        <button type="button" id="status" onclick="status()">예약확인</button>
+        <button type="button" id="status" onclick="modaldata_load()">예약확인</button>
         </div>
 
   <!-- 모달 -->
@@ -120,7 +120,7 @@ border-radius: 5px;
           <label for="room" class="col-form-label">선택할공간 :</label>
           <br>
           <label for="room">1번방</label>
-          <input type="radio" name="room" value="1번방">
+          <input type="radio" name="room" value="1번방" checked>
           <br>
           <label for="room">2번방</label>
           <input type="radio" name="room" value="2번방">
@@ -150,8 +150,9 @@ border-radius: 5px;
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id="reservation" onclick="reservation()">reservation</button>
         <button type="button" class="btn btn-primary" id="save-event">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -185,34 +186,80 @@ border-radius: 5px;
   function closeNav() {
     document.getElementById('mysidenav').style.width = '0';
   };
-  // {{ eventData }}
-
-  function status() {
-    var title = 'title';
-    var name = 'name';
-    var email = 'email';
-    var phone_number = 'phone_number';
-    var room = 'room';
-    var message_text = 'message_text';
-    var start = '10/19/2020 9:18 AM';
-    var end = '10/21/2020 9:18 AM';
-    
-    var eventData = {
-
-      title: title,
-      name: name,
-      email: email,
-      phone_number: phone_number,
-      room: room,
-      message_text: message_text,
-      start: start,
-      end: end
-      };
-      $("#calendar").fullCalendar("renderEvent", eventData, true);
-   };
-  
 </script>
+<script>
 
+  function modaldata_load() {
+
+    $.ajax({
+      type: 'POST',
+      url: '/postdata',
+      datatype: 'JSON',
+      success:function(result){
+        
+        for (i=0; i<result.length; i++) {
+          var eventData = {
+            title: result[i]['title'],
+            name: result[i]['recipient_name'],
+            email: result[i]['email'],
+            Phone_number: result[i]['phone_number'],
+            room: result[i]['room'],
+            message_text: result[i]['message_text'],
+            start: result[i]['start'],
+            end: result[i]['end']
+          };
+          $("#calendar").fullCalendar("renderEvent", eventData, true);
+          $("#status").hide();
+        }
+      },   
+      error:function(){
+        alert("등록되어있는 내용이 없습니다");
+      } 
+    });
+  }
+</script>
+<script>
+  
+
+  function reservation() {
+    var title = $("#title").val();
+    var name = $("#recipient_name").val();
+    var email = $("#email").val();
+    var phone_number = $("#phone_number").val();
+    var room = $(":input:radio[name=room]:checked").val();
+    var message_text = $("#message_text").val();
+    var start = $("#starts-at").val();
+    var end = $("#ends-at").val();
+
+    var modal_data = {
+      'title':title, 
+      'name':name, 
+      'email':email, 
+      'phone_number':phone_number, 
+      'room':room, 
+      'message_text':message_text, 
+      'start':start, 
+      'end':end
+    }
+
+    $.ajax ({
+      type:'POST',
+      url: '{{url_for("reservation")}}',
+      data: JSON.stringify(modal_data),
+      dataType: 'JSON',
+      contentType: "application/json",
+      success: function(data){
+        alert('등록이 완료되었습니다')
+      },
+      error: function(request, status, error){
+        alert('ajax 통신 실패')
+        alert(error);
+      }
+    });
+    $(".modal").modal("hide");
+
+  }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.0.1/fullcalendar.js"></script>
@@ -224,6 +271,12 @@ border-radius: 5px;
 
 
 <script>
+$("#starts-at, #ends-at").datetimepicker({
+  format : 'YYYY-MM-DD'
+});
+
+var editstart = $('#starts-at');
+var editend = $('#ends-at') 
   
 $(document).ready(function() {
   
@@ -254,16 +307,16 @@ $(document).ready(function() {
           .find("#title")
           .val("");
         $(".modal")
-          .find("#starts-at")
-          .val("");
+          .find(editstart)
+          .val(start);
         $(".modal")
-          .find("#ends-at")
-          .val("");
+          .find(editend)
+          .val(end);
         $("#save-event").show();
         $("input").prop("readonly", false);
         $("textarea").prop("readonly", false);
-
       };
+      $("#reservation").hide();
     },
     
     eventRender: function(event, element) {
@@ -306,14 +359,16 @@ $(document).ready(function() {
         .val(calEvent.end);
 
       $("#save-event").hide();
+      $("#reservation").show();
       $("input").prop("readonly", true);
       $("radio").prop("return", false);
       $("textarea").prop("readonly", true);
+
     }
   });
 
   // Bind the dates to datetimepicker.
-  $("#starts-at, #ends-at").datetimepicker();
+  // $("#starts-at, #ends-at").datetimepicker();
 
   //click to save "save"
   $("#save-event").on("click", function(event) {
@@ -335,6 +390,14 @@ $(document).ready(function() {
       'message_text':message_text, 
       'start':start, 
       'end':end
+    }
+    if (postdata.start > postdata.end){
+      alert('끝나는 날짜가 앞설수 없습니다')
+      return false
+    }
+    if (postdata.title === ''){
+      alert('일정명을 입력해주세요')
+      return false
     }
 
     $.ajax ({

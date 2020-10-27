@@ -82,13 +82,15 @@ border-radius: 5px;
       <div id="class_list">
       {{data | safe}}
       </div>
-      <a href="#"class="closebtn" style="position:absolute;" onclick='closeNav()'>←</a>
+      <a href="#"class="closebtn" style="position:absolute;" >←</a>
       </div>
       <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>My task list</span>
   
         <d iv class="container">
         <div id="calendar"></div>
-        <button type="button" id="status" onclick="modaldata_load()">예약확인</button>
+        <div style="display: none;">
+        <button type="button" id="status" onclick="modaldata_load()" hide>예약확인</button>
+        </div>
         </div>
 
   <!-- 모달 -->
@@ -179,6 +181,7 @@ border-radius: 5px;
   영업 시간 : 월 ~ 금 09 : 00 ~ 18 : 00 (주말 및 공휴일 휴무) </br>
   © ISYT
 </div>
+
 <script>
   function openNav() {
     document.getElementById('mysidenav').style.width = '250px';
@@ -188,7 +191,6 @@ border-radius: 5px;
   };
 </script>
 <script>
-
   function modaldata_load() {
 
     $.ajax({
@@ -259,6 +261,13 @@ border-radius: 5px;
     $(".modal").modal("hide");
 
   }
+</script>
+<script>
+  function make_list(title) {
+    let temp_html = "<button><a href='/calendar/status={id}'>{title}</a></button>"
+    return temp_html;
+  }
+  
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment-with-locales.min.js"></script>
@@ -408,6 +417,8 @@ $(document).ready(function() {
       contentType: "application/json",
       success: function(data){
         alert('등록이 완료되었습니다')
+        let append_one = make_list(postdata['title']);
+        $('#class_list').append(append_one);
       },
       error: function(request, status, error){
         alert('ajax 통신 실패')
@@ -426,6 +437,8 @@ $(document).ready(function() {
         start: start,
         end: end
       };
+
+      
       $("#calendar").fullCalendar("renderEvent", eventData, true); // stick? = true
     }
     $("#calendar").fullCalendar("unselect");
@@ -446,8 +459,12 @@ $(document).ready(function() {
   });
 
   $("textarea").autosize();
+  
 
 });
+
+$("#status").trigger("click");
+
 </script>
 
 </body>

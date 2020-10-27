@@ -185,7 +185,6 @@ def modal_data():
     cur.execute(sql, (title, name, email, phone_number, room, message_text, start, end))
     conn.commit()
     conn.close()
-
     return jsonify(result = "success", result2= data)
  
 

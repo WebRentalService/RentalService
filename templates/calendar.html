@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.42/css/bootstrap-datetimepicker.min.css"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></script>
   <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}"> -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/sidenav.css') }}">
   
@@ -218,8 +218,16 @@ border-radius: 5px;
 </script>
 
 <script>
+$("#starts-at, #ends-at").datetimepicker({
+  format : 'YYYY-MM-DD'
+});
+
+var editstart = $('#starts-at');
+var editend = $('#ends-at')
   
 $(document).ready(function() {
+  // Bind the dates to datetimepicker.
+
   
   $("#calendar").fullCalendar({
     header: {
@@ -248,11 +256,11 @@ $(document).ready(function() {
           .find("#title")
           .val("");
         $(".modal")
-          .find("#starts-at")
-          .val("");
+          .find(editstart)
+          .val(start);
         $(".modal")
-          .find("#ends-at")
-          .val("");
+          .find(editend)
+          .val(end);
         $("#save-event").show();
         $("input").prop("readonly", false);
         $("textarea").prop("readonly", false);
@@ -306,10 +314,11 @@ $(document).ready(function() {
     }
   });
 
-  // Bind the dates to datetimepicker.
-  $("#starts-at, #ends-at").datetimepicker();
+  // // Bind the dates to datetimepicker.
+  // $("#starts-at, #ends-at").datetimepicker();
 
   //click to save "save"
+  $("save-evnet").unbind();
   $("#save-event").on("click", function(event) {
     var title = $("#title").val();
     var name = $("#recipient_name").val();
@@ -319,6 +328,8 @@ $(document).ready(function() {
     var message_text = $("#message_text").val();
     var start = $("#starts-at").val();
     var end = $("#ends-at").val();
+    
+
 
     var postdata = {
       'title':title, 
@@ -329,6 +340,15 @@ $(document).ready(function() {
       'message_text':message_text, 
       'start':start, 
       'end':end
+    }
+
+    if (postdata.start > postdata.end) {
+      alert('끝나는 날짜가 앞설 수 없습니다.');
+      return false;
+    }
+    if (postdata.title === ''){
+      alert('일정명은 필수입니다.');
+      return false;
     }
 
     $.ajax ({

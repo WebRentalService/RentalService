@@ -83,13 +83,12 @@ border-radius: 5px;
       {{data | safe}}
       </div>
       <p class="closebtn" style="position:absolute; cursor:pointer; margin-top: 95px;" onclick='closeNav()'>←</p>
-      <h5>회원정보 수정하기</h5>
       </div>
       <span class="openmenu" onclick='openNav()'><i class="fa fa-angle-double-right fa-5" aria-hidden="true" style="margin-left: 25px;"></i>할 일 목록</span>
-  
-        <div class="container">
+        <div class="container" style="margin-top: -20px;">
         <div id="calendar"></div>
         </div>
+        <button class="reservation_btn" type="button" id="status" onclick="modaldata_load()">예약확인</button>
 
   <!-- 모달 -->
 <div class="modal fade" tabindex="-1" role="dialog">
@@ -120,7 +119,7 @@ border-radius: 5px;
           <label for="room" class="col-form-label">선택할공간 :</label>
           <br>
           <label for="room">1번방</label>
-          <input type="radio" name="room" value="1번방">
+          <input type="radio" name="room" value="1번방" checked>
           <br>
           <label for="room">2번방</label>
           <input type="radio" name="room" value="2번방">
@@ -150,8 +149,9 @@ border-radius: 5px;
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" id="reservation" onclick="reservation()">예약</button>
         <button type="button" class="btn btn-primary" id="save-event">저장</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -184,6 +184,79 @@ border-radius: 5px;
   }
   function closeNav() {
     document.getElementById('mysidenav').style.width = '0';
+  };
+</script>
+<script>
+
+  function modaldata_load() {
+
+    $.ajax({
+      type: 'POST',
+      url: '/postdata',
+      datatype: 'JSON',
+      success:function(result){
+        
+        for (i=0; i<result.length; i++) {
+          var eventData = {
+            title: result[i]['title'],
+            name: result[i]['recipient_name'],
+            email: result[i]['email'],
+            Phone_number: result[i]['phone_number'],
+            room: result[i]['room'],
+            message_text: result[i]['message_text'],
+            start: result[i]['start'],
+            end: result[i]['end']
+          };
+          $("#calendar").fullCalendar("renderEvent", eventData, true);
+          $("#status").hide();
+        }
+      },   
+      error:function(){
+        alert("등록되어있는 내용이 없습니다");
+      } 
+    });
+  }
+</script>
+<script>
+  
+
+  function reservation() {
+    var title = $("#title").val();
+    var name = $("#recipient_name").val();
+    var email = $("#email").val();
+    var phone_number = $("#phone_number").val();
+    var room = $(":input:radio[name=room]:checked").val();
+    var message_text = $("#message_text").val();
+    var start = $("#starts-at").val();
+    var end = $("#ends-at").val();
+
+    var modal_data = {
+      'title':title, 
+      'name':name, 
+      'email':email, 
+      'phone_number':phone_number, 
+      'room':room, 
+      'message_text':message_text, 
+      'start':start, 
+      'end':end
+    }
+
+    $.ajax ({
+      type:'POST',
+      url: '{{url_for("reservation")}}',
+      data: JSON.stringify(modal_data),
+      dataType: 'JSON',
+      contentType: "application/json",
+      success: function(data){
+        alert('등록이 완료되었습니다')
+      },
+      error: function(request, status, error){
+        alert('ajax 통신 실패')
+        alert(error);
+      }
+    });
+    $(".modal").modal("hide");
+
   }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -194,30 +267,15 @@ border-radius: 5px;
 <!-- <script src="{{ url_for('static', filename='js/modal.js') }}"></script> -->
 <script src="https://kit.fontawesome.com/ab92c38314.js" crossorigin="anonymous"></script>
 <!--LOGO IMG-->
-<script>
-  var title = '커피';
-  var name = "마건익";
-  var email ='이메일';
-  var phone_number = '01011112222';
-  var room = '3번방';
-  var message_text = '커피만드실분';
-  var start = '10/21/2020 10:48 PM';
-  var end = '10/23/2020 10:48 PM';
-  
-  var eventData = {
-    title: title,
-    name: name,
-    email: email,
-    phone_number: phone_number,
-    room: room,
-    message_text: message_text,
-    start: start,
-    end: end
-    };
-    $("#calendar").fullCalendar("renderEvent", eventData, true);
-</script>
+
 
 <script>
+$("#starts-at, #ends-at").datetimepicker({
+  format : 'YYYY-MM-DD'
+});
+
+var editstart = $('#starts-at');
+var editend = $('#ends-at') 
   
 $(document).ready(function() {
   
@@ -248,16 +306,16 @@ $(document).ready(function() {
           .find("#title")
           .val("");
         $(".modal")
-          .find("#starts-at")
-          .val("");
+          .find(editstart)
+          .val(start);
         $(".modal")
-          .find("#ends-at")
-          .val("");
+          .find(editend)
+          .val(end);
         $("#save-event").show();
         $("input").prop("readonly", false);
         $("textarea").prop("readonly", false);
-
       };
+      $("#reservation").hide();
     },
     
     eventRender: function(event, element) {
@@ -300,14 +358,16 @@ $(document).ready(function() {
         .val(calEvent.end);
 
       $("#save-event").hide();
+      $("#reservation").show();
       $("input").prop("readonly", true);
       $("radio").prop("return", false);
       $("textarea").prop("readonly", true);
+
     }
   });
 
   // Bind the dates to datetimepicker.
-  $("#starts-at, #ends-at").datetimepicker();
+  // $("#starts-at, #ends-at").datetimepicker();
 
   //click to save "save"
   $("#save-event").on("click", function(event) {
@@ -329,6 +389,14 @@ $(document).ready(function() {
       'message_text':message_text, 
       'start':start, 
       'end':end
+    }
+    if (postdata.start > postdata.end){
+      alert('끝나는 날짜가 앞설수 없습니다')
+      return false
+    }
+    if (postdata.title === ''){
+      alert('일정명을 입력해주세요')
+      return false
     }
 
     $.ajax ({
@@ -377,6 +445,7 @@ $(document).ready(function() {
   });
 
   $("textarea").autosize();
+
 });
 </script>
 

@@ -30,12 +30,18 @@ def main():
 #로그인 페이지
 @app.route('/login')
 def login_page():
+    if g.user:
+        return redirect(url_for('calendar'))
     return render_template('login.html')
 
 #회원가입 페이지 
 @app.route('/create')
 def create():
     return render_template('create.html')
+
+@app.route('/about')
+def about_page():
+    return render_template('about.html')
 
 #회원가입
 @app.route('/register', methods=['POST'])
@@ -136,38 +142,22 @@ def calendar():
     #db연결, id, title 값 호출
     conn = mariadb_conn()
     cur = conn.cursor()
-    sql = "SELECT id, title FROM modalContent"
+    reservation_user = g.user[0]
+    print(type(reservation_user))
+    sql = "SELECT id, title FROM reservation WHERE username = '{}'".format(reservation_user)
     cur.execute(sql)
-    
 
+    
     #class list 목록 생성
     html = ""
     modal_data_dict = []
     for id, title in cur:
-        html += "<li><a href='/calendar/status={id}'>{title}</a></li>".format(id=id, title=title)
+        html += "<button style='background-color: #272727; border: 0; display: block; line-height: 40px;'><a href='/calendar/status={id}'>- {title}</a></button>".format(id=id, title=title)
         print(id, title)
 
-    count = len(cur.fetchall())
-    
-    if count > 0:
-        sql = "SELECT * FROM modalContent"
-        cur.execute(sql)
-        modal_data_list = cur.fetchall()
-        for i in modal_data_list:
-            modal_data_dict_ = {
-                'title': i[1],
-                'name': i[2],
-                'email': i[3],
-                'phone_number': i[4],
-                'room': i[5],
-                'message_text': i[6],
-                'start': i[7],
-                'end': i[8]
-            }
-            modal_data_dict.append(modal_data_dict_)
     conn.close()
     
-    return render_template('calendar.html', data = html, event_list = modal_data_dict)
+    return render_template('calendar.html', data = html)
 
 #모달에서 받은 데이터를 데이터베이스에 저장
 @app.route('/modal_data', methods=['POST'])
@@ -194,35 +184,36 @@ def modal_data():
     cur = conn.cursor()
     cur.execute(sql, (title, name, email, phone_number, room, message_text, start, end))
     conn.commit()
-    conn.close
+    conn.close()
 
     return jsonify(result = "success", result2= data)
  
 
 #모달에 입력한 데이터 달력에 띄우기
-def data():
+@app.route('/postdata', methods=['POST'])
+def moadldata_load():
     conn = mariadb_conn()
     cur = conn.cursor()
     sql = "SELECT * FROM modalContent"
     cur.execute(sql)
     data_list = []
-
-    for title, recipient_name, email, phone_number, room, message_text, start, end in cur: 
-        data_dict = {
-            'title': f'{title}',
-            'recipient_name': f'{recipient_name}',
-            'email': f'{email}',
-            'phone_number': f'{phone_number}',
-            'room': f'{room}',
-            'message_text': f'{message_text}',
-            'start': f'{start}',
-            'end': f'{end}'
-            } 
+    
+    for id, title, recipient_name, email, phone_number, room, message_text, start, end in cur:
+        data = {
+            'id': id,
+            'title': title,
+            'recipient_name': recipient_name,
+            'email': email,
+            'phone_number': phone_number,
+            'room': room,
+            'message_text': message_text,
+            'start': start,
+            'end': end
+        }
+        data_list.append(data)
         
-        data_list.append(data_dict)
-        print(data_list)
-    conn.close
-    return data_list
+    conn.close()
+    return jsonify(data_list)
 
 #class list 클릭시 이벤트
 #url에 들어간 데이터의 id로 데이터 판단
@@ -254,13 +245,34 @@ def status(title_id):
     conn.close
     return data_dict
 
-@app.route('/about')
-def about_page():
-    return render_template('about.html')
+@app.route('/reservation', methods=['POST'])
+def reservation():
+    reservation_data = request.get_json()
 
-@app.route('/revise')
-def revise_page():
-    return render_template('revise.html')
+    title = reservation_data.get('title')
+    name = reservation_data.get('name')
+    email = reservation_data.get('email')
+    phone_number = reservation_data.get('phone_number')
+    room = reservation_data.get('room')
+    message_text = reservation_data.get('message_text')
+    start = reservation_data.get('start')
+    end = reservation_data.get('end')
+    username = g.user[0]
+    print(title, name, email, phone_number, room, message_text, start, end, username)
+    print(g.user[0])
+    sql = """
+        INSERT INTO reservation (title, name, email, phone_number, room, message_text, start, end, username) 
+        VALUES (?, ?, ?, ?, ?, ?, ? ,?, ?)
+        """
+
+    #데이터 전송 및 저장
+    conn = mariadb_conn()
+    cur = conn.cursor()
+    cur.execute(sql, (title, name, email, phone_number, room, message_text, start, end, username))
+    conn.commit()
+    conn.close()
+    
+    return jsonify(result = "success")
 
 if __name__ == "__main__":
     app.debug=True

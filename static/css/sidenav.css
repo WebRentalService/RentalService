@@ -62,24 +62,6 @@
   font-size: 30px;
 }
 
-.reservation_btn {
-  position: relative;
-  width: 200px;
-  height: 50px;
-  font-size: 20px;
-  background-color: white;
-  border: 2px solid gray;
-  box-shadow: 1px 1px 1px 1px gray;
-  letter-spacing: 8px;
-  left: 860px;
-  top: 10px;
-}
-
-.reservation_btn:hover {
-  background-color: rgb(231, 231, 231);
-  border: 2px solid rgb(66, 66, 66);
-}
-
 .bottom {
   text-align: center;
   line-height: 30px;

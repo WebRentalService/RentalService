@@ -10,10 +10,10 @@ app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 def mariadb_conn():
     try:
         db = mariadb.connect(
-            user = 'ges',
-            password = 'ges',
+            user = 'mtp',
+            password = 'password',
             host = 'localhost',
-            port = 13306,
+            port = 3306,
             database = 'Users'
             )
 

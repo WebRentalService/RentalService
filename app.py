@@ -10,10 +10,10 @@ app.secret_key = b'_5#y2L"F4Q8z\\n\\xec]/'
 def mariadb_conn():
     try:
         db = mariadb.connect(
-            user = 'mtp',
-            password = 'password',
+            user = 'ges',
+            password = 'ges',
             host = 'localhost',
-            port = 3306,
+            port = 13306,
             database = 'Users'
             )
 
@@ -152,7 +152,7 @@ def calendar():
     html = ""
     modal_data_dict = []
     for id, title in cur:
-        html += "<button><a href='/calendar/status={id}'>{title}</a></button>".format(id=id, title=title)
+        html += "<button style='background-color: #272727; border: 0; display: block; line-height: 40px;'><a href='/calendar/status={id}'>- {title}</a></button>".format(id=id, title=title)
         print(id, title)
 
     conn.close()
@@ -272,7 +272,6 @@ def reservation():
     conn.close()
     
     return jsonify(result = "success")
-
 
 if __name__ == "__main__":
     app.debug=True
